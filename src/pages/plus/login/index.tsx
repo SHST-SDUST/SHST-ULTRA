@@ -1,7 +1,7 @@
 import { Canvas, Image, Input, Switch, View } from "@tarojs/components";
 import Taro from "@tarojs/taro";
 import { cs } from "laser-utils";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { Icon } from "@/components/icon";
 import { useOnLoadEffect } from "@/hooks/use-onload-effect";
@@ -20,7 +20,6 @@ import {
   CAPTCHA_WIDTH,
   loginApp,
   requestForVerifyCode,
-  toBase64,
 } from "./model";
 
 export default function Index() {
@@ -57,7 +56,7 @@ export default function Index() {
     });
   };
 
-  useOnLoadEffect(() => {
+  useEffect(() => {
     loadVerifyCode();
     LocalStorage.getPromise<{ account: string; password: string }>(CACHE.USER).then(res => {
       if (res && res.account && res.password) {
@@ -65,7 +64,7 @@ export default function Index() {
         setPassword(res.password);
       }
     });
-  });
+  }, []);
 
   return (
     <React.Fragment>

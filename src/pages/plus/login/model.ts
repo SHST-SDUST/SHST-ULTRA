@@ -1,4 +1,3 @@
-import { App } from "@/utils/app";
 import { SW_HOST } from "@/utils/constant";
 import { RegExec } from "@/utils/regex";
 import { HTTP } from "@/utils/request";
@@ -48,17 +47,26 @@ export const loginApp = (account: string, password: string, code: string) => {
     method: "POST",
     throttle: true,
     data: {
-      encoded: base64Encode(account + "%%%" + password),
+      encoded: base64Encode(account) + "%%%" + base64Encode(password),
       RANDOMCODE: code,
     },
-  }).then(res => {
-    if (res.statusCode === 302) {
-      return { status: 1 };
-    } else {
-      const err = RegExec.exec(/<font[\s\S]*?>(.*?)<\/font>/, res.data);
-      return { status: 2, msg: RegExec.get(err, 1) || "未知错误" };
-    }
-  });
+  })
+    .then(res => {
+      console.log("res :>> ", res.data);
+      console.log("res :>> ", res.data.toString("utf-8"));
+      if (res.statusCode === 302 || res.data.indexOf("calender_user_schedule") > -1) {
+        return { status: 1, msg: "" };
+      } else {
+        const err = RegExec.exec(/<font[\s\S]*?>(.*?)<\/font>/, res.data);
+        return { status: 2, msg: RegExec.get(err, 1) || "未知错误" };
+      }
+    })
+    .catch(error => {
+      if (error && /url not in domain list/.test(error.errMsg)) {
+        return { status: 1, msg: "" };
+      }
+      return { status: 2, msg: "未知错误" };
+    });
 };
 
 export const requestForVerifyCode = () => {

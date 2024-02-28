@@ -13,7 +13,6 @@ import { Toast } from "./utils/toast";
 const AppLauncher: FC = ({ children }) => {
   useLaunch(() => {
     AppAPI.update();
-    AppAPI.init();
   });
 
   usePageNotFound(() => {

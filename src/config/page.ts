@@ -2,7 +2,7 @@ export const PATH = {
   PLUS_LOGIN: "/pages/plus/login/index",
   // HOME: "/pages/index/index/index",
   // LOGIN: "/pages/app/login/index",
-  // NOT_FOUNT: "/pages/app/404/index",
+  NOT_FOUNT: "/pages/app/404/index",
   // WEBVIEW: "/pages/app/webview/index",
   // PLUS: "/pages/plus/index/index",
   // PLUS_TIMETABLE: "/pages/plus/study/timetable/index",
