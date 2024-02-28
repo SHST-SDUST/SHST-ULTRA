@@ -1,0 +1,42 @@
+page {
+  background-color: var(--color-bg-1);
+  padding: 0;
+}
+
+button {
+  background-color: transparent;
+}
+
+.img {
+  height: 90px;
+  margin-top: 20px;
+  width: 270px;
+}
+
+.userInfoContainer {
+  margin-top: 27px;
+  padding: 10px;
+}
+
+.top {
+  border-top: 1px solid var(--color-border-2);
+}
+
+.line {
+  border-bottom: 1px solid var(--color-border-2);
+  display: flex;
+  height: 30px;
+  justify-content: space-between;
+  line-height: 30px;
+  padding: 10px 15px;
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.footer .text {
+  color: #aaa;
+}

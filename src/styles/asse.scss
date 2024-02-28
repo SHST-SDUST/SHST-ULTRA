@@ -1,0 +1,632 @@
+@charset "utf-8";
+
+/* section --- body page --- section */
+body,
+page {
+  --color-blue: #4c98f7;
+  --color-green: #009688;
+  --color-white: #fff;
+  --color-yellow: #ffb800;
+  --color-orange: #ff5722;
+}
+
+/* section --- body page --- section */
+
+/* section --- 动画 --- section */
+@keyframes shallow {
+  from {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  to {
+    opacity: 0.9;
+    visibility: hidden;
+  }
+}
+
+/* section --- 动画 --- section */
+
+/* section --- Button --- section */
+.a-btn {
+  border: 1px solid var(--color-border-2);
+  border-radius: 3px;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 12px;
+  margin: 3px;
+  padding: 7px 15px;
+  text-align: center;
+  transition: all 0.3s;
+}
+
+.a-btn:hover {
+  animation: shallow 0.3s;
+  opacity: 0.9;
+}
+
+.a-btn-blue {
+  background: var(--color-blue);
+  color: #fff;
+}
+
+.a-btn-white {
+  background: #fff;
+  border: 1px solid #eee;
+  color: #000;
+}
+
+.a-btn-yellow {
+  background: var(--color-yellow);
+}
+
+.a-btn-orange {
+  background: var(--color-orange);
+  color: #fff;
+}
+
+.a-btn-success-plain {
+  background-color: #dbf1e1 !important;
+  border: 1px solid #71d5a1 !important;
+  color: #19be6b !important;
+}
+
+.a-btn-blue-plain {
+  background-color: #ecf5ff !important;
+  border: 1px solid #a0cfff !important;
+  color: #2979ff !important;
+}
+
+.a-btn-yellow-plain {
+  background-color: #fdf6ec !important;
+  border: 1px solid #fcbd71 !important;
+  color: #f90 !important;
+}
+
+.a-btn-orange-plain {
+  background-color: #fef0f0 !important;
+  border: 1px solid #fab6b6 !important;
+  color: #fa3534 !important;
+}
+
+.a-btn-disable {
+  background: #fbfbfb;
+  border: 1px solid #eee;
+  color: #c9c9c9;
+  cursor: not-allowed;
+}
+
+.a-btn-large {
+  padding: 10px 20px;
+}
+
+.a-btn-small {
+  font-size: 12px;
+  padding: 5px 10px;
+}
+
+.a-btn-mini {
+  border-radius: 2px;
+  font-size: 10px;
+  padding: 3px 5px;
+}
+
+.a-btn-cicle {
+  border-radius: 50px;
+}
+
+.a-btn-square {
+  padding: 7px 7.5px;
+}
+
+/* section --- Button --- section */
+
+/* section --- 颜色 --- section */
+.a-color-blue {
+  color: var(--color-blue) !important;
+}
+
+.a-color-white {
+  color: var(--color-white) !important;
+}
+
+.a-color-green {
+  color: var(--color-green) !important;
+}
+
+.a-color-yellow {
+  color: var(--color-yellow) !important;
+}
+
+.a-color-orange {
+  color: var(--color-orange) !important;
+}
+
+.a-color-grey {
+  color: var(--color-text-2);
+}
+
+.a-background-blue {
+  background-color: var(--color-blue) !important;
+}
+
+.a-background-white {
+  background-color: var(--color-white) !important;
+}
+
+.a-background-green {
+  background-color: var(--color-green) !important;
+}
+
+.a-background-yellow {
+  background-color: var(--color-yellow) !important;
+}
+
+.a-background-orange {
+  background-color: var(--color-orange) !important;
+}
+
+.a-background-grey {
+  background-color: #eee !important;
+}
+
+.a-background-purple {
+  background-color: #aca4d5 !important;
+}
+
+.a-background-light-orange {
+  background-color: #eaa78c !important;
+}
+
+/* section --- 颜色 --- section */
+
+/* section --- 组件 --- section */
+.a-hr {
+  background: #eee;
+  border: unset;
+  display: block;
+  height: 1px;
+  margin: 5px 0;
+}
+
+.a-fieldset {
+  border: 1px solid #eee;
+  margin-top: 10px;
+}
+
+.a-textarea {
+  border: 1px solid #eee;
+  border-radius: 3px;
+  color: #aaa;
+  margin-top: 10px;
+  padding: 10px;
+  width: calc(100% - 22px);
+}
+
+/* section --- 组件 --- section */
+
+/* section --- 面板 响应式 --- section */
+@media screen and (max-width: 600px) { /* <=600 */
+  .a-panel {
+    margin: 5px;
+    padding: 3px;
+  }
+
+  .a-panel-left {
+    margin: 5px;
+    padding: 3px;
+  }
+
+  .a-panel-right {
+    margin: 5px;
+    padding: 3px;
+  }
+}
+
+@media screen and (min-width: 600px) {  /* >=600 */
+  .a-panel {
+    margin: 5px auto;
+    padding: 3px;
+    width: calc(70% - 15px);
+  }
+
+  .a-panel-left {
+    background: #eee;
+    display: inline-block;
+    margin: 3px;
+    padding: 3px;
+    width: calc(50% - 15px);
+  }
+
+  .a-panel-right {
+    background: #eee;
+    display: inline-block;
+    margin: 3px;
+    padding: 3px;
+    width: calc(50% - 15px);
+  }
+}
+
+/* section --- 面板 响应式 --- section */
+
+/* section --- 表格 --- section */
+.a-table {
+  border-collapse: collapse;
+  border-left: 1px solid #e6e6e6;
+  border-top: 1px solid #e6e6e6;
+  color: #757575;
+  font-size: 14px;
+  margin-top: 5px;
+  text-align: center;
+  width: 100%;
+}
+
+.a-table th,
+.a-table td {
+  border-bottom: 1px solid #e6e6e6;
+  border-right: 1px solid #e6e6e6;
+  margin: 0;
+  padding: 8px 15px;
+}
+
+.a-table th {
+  background: #f2f2f2;
+  color: #666;
+  font-weight: normal;
+}
+
+.a-table tr {
+  border-bottom: 1px solid #e6e6e6;
+  border-left: 1px solid #e6e6e6;
+  height: 30px;
+}
+
+.a-table tbody :hover {
+  background-color: #f2f2f2;
+}
+
+/* section --- 表格 --- section */
+
+/* section --- 样式 --- section */
+.a-show {
+  display: block !important;
+}
+
+.a-hide {
+  display: none;
+}
+
+.a-dot {
+  background-color: var(--color-blue);
+  border-radius: 8px;
+  height: 8px;
+  margin: 0 5px;
+  width: 8px;
+}
+
+.a-link {
+  color: var(--color-blue);
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.a-verline {
+  background-color: var(--color-blue);
+  margin: 2px 5px;
+  width: 2px;
+}
+
+.a-overflow-hidden {
+  overflow: hidden;
+}
+
+/* section --- 样式 --- section */
+
+/* section --- flex --- section */
+.a-flex {
+  display: flex;
+}
+
+.x-center {
+  display: flex;
+  justify-content: center;
+}
+
+.y-center {
+  align-items: center;
+  display: flex;
+}
+
+.a-full {
+  height: 100%;
+  width: 100%;
+}
+
+.a-flex-full {
+  flex: 1;
+}
+
+.a-flex-none {
+  flex: none;
+}
+
+.a-flex-warp {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.a-flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.a-flex-space-between {
+  display: flex;
+  justify-content: space-between;
+}
+
+.a-flex-space-around {
+  display: flex;
+  justify-content: space-around;
+}
+
+/* section --- flex --- section */
+
+/* section --- 布局 --- section */
+.x-full {
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.y-full {
+  height: 100%;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+.retract {
+  padding: 0 5px;
+}
+
+.border-box {
+  box-sizing: border-box;
+}
+
+/* section --- 布局 --- section */
+
+/* section --- 卡片 --- section */
+.a-card .a-card-title {
+  background-color: #fff;
+  border-bottom: 1px solid #eee;
+  box-sizing: border-box;
+  display: flex;
+  padding: 12px 5px 10px 11px;
+}
+
+.a-card .a-card-body {
+  background-color: #fff;
+  box-sizing: border-box;
+  font-size: 13px;
+  margin-bottom: 15px;
+  padding: 11px;
+}
+
+/* section --- 卡片 --- section */
+
+/* section --- 表单 --- section */
+.a-select {
+  border-radius: 2px;
+  font-size: 10px;
+  height: 22px;
+  padding: 0 5px;
+  position: relative;
+  top: -1px;
+}
+
+.a-label {
+  align-items: center;
+  align-self: center;
+  display: flex;
+  justify-content: flex-section;
+  margin: 0;
+  min-width: 60px;
+}
+
+.a-input {
+  border: 1px solid #eee;
+  display: block;
+  flex: 1;
+  margin: 10px;
+  padding: 3px 5px;
+}
+
+.a-input-con {
+  display: flex;
+  margin: 5px;
+}
+
+.a-input-con .a-input {
+  margin: 0;
+}
+
+.a-input-con .a-label {
+  background-color: #f2f2f2;
+  border: 1px solid #eee;
+  border-right: unset;
+  justify-content: center;
+  padding: 7px 0;
+}
+
+.a-input-con-line {
+  border-bottom: 1px solid #eee;
+  display: flex;
+  margin: 5px;
+  padding: 5px 10px;
+}
+
+.a-input-con-line .a-label {
+  justify-content: center;
+  min-width: 50px;
+}
+
+.a-input-con-line .a-input {
+  border: unset;
+  margin: 0 0 0 10px;
+  outline: none;
+  padding: 0;
+}
+
+/* section --- 表单 --- section */
+
+/* section --- 微距 --- section */
+.a-mt {
+  margin-top: 3px !important;
+}
+
+.a-mr {
+  margin-right: 3px !important;
+}
+
+.a-mb {
+  margin-bottom: 3px !important;
+}
+
+.a-ml {
+  margin-left: 3px !important;
+}
+
+.a-pt {
+  padding-top: 3px !important;
+}
+
+.a-pr {
+  padding-right: 3px !important;
+}
+
+.a-pb {
+  padding-bottom: 3px !important;
+}
+
+.a-pl {
+  padding-left: 3px !important;
+}
+
+/* section --- 微距 --- section */
+
+/* section --- 长距 --- section */
+.a-lmt {
+  margin-top: 10px !important;
+}
+
+.a-lmr {
+  margin-right: 10px !important;
+}
+
+.a-lmb {
+  margin-bottom: 10px !important;
+}
+
+.a-lml {
+  margin-left: 10px !important;
+}
+
+.a-lpt {
+  padding-top: 10px !important;
+}
+
+.a-lpr {
+  padding-right: 10px !important;
+}
+
+.a-lpb {
+  padding-bottom: 10px !important;
+}
+
+.a-lpl {
+  padding-left: 10px !important;
+}
+
+/* section --- 长距 --- section */
+
+/* section --- 文本行数限制 --- section */
+.a-line-1 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.a-line-2 {
+  -webkit-line-clamp: 2;
+}
+
+.a-line-3 {
+  -webkit-line-clamp: 3;
+}
+
+.a-line-4 {
+  -webkit-line-clamp: 4;
+}
+
+.a-line-5 {
+  -webkit-line-clamp: 5;
+}
+
+.a-line-2,
+.a-line-3,
+.a-line-4,
+.a-line-5 {
+  -webkit-box-orient: vertical; // 设置伸缩盒子元素排列方式
+  display: flex; // 弹性伸缩盒
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-all;
+}
+
+/* section --- 文本行数限制 --- section */
+
+/* section --- 文字大小 --- section */
+@for $i from 10 to 27 {
+  .a-fontsize-#{$i} {
+    font-size: $i + px !important;
+  }
+}
+
+/* section --- 文字大小 --- section */
+
+/* section --- 内外边距 --- section */
+$size-list: 3,5,6,10,15,20;
+
+@each $item in $size-list {
+  @each $short, $long in l left, t top, r right, b bottom {
+    .a-m#{$short}-#{$item} {
+      margin-#{$long}: $item + px !important;
+    }
+    .a-p#{$short}-#{$item} {
+      padding-#{$long}: $item + px !important;
+    }
+  }
+}
+
+/* section --- 内外边距 --- section */
+
+/* section --- 间隙大小 --- section */
+@for $i from 5 to 16 {
+  .a-gap-#{$i} {
+    height: $i + px;
+    width: 100%;
+  }
+}
+
+/* section --- 间隙大小 --- section */

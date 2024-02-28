@@ -1,0 +1,58 @@
+/* stylelint-disable selector-pseudo-class-no-unknown */
+page {
+  background: var(--color-bg-1);
+}
+
+.img {
+  height: 80px;
+  margin: 20px 0 30px;
+  width: 230px;
+}
+
+.inputContainer {
+  margin-top: 23px;
+
+  :global(.a-input) {
+    border: unset;
+    margin: 7px 0;
+  }
+}
+
+.inputView {
+  border-bottom: 1px solid #eee;
+  margin-top: 5px;
+}
+
+.tips {
+  color: #79b2f9;
+  font-size: 13px;
+  margin: 10px 0 0 3px;
+}
+
+.inputViewIcon {
+  align-self: center;
+  color: #aaa;
+  font-size: 15px;
+  margin: 0 4px 0 8px;
+}
+
+.status {
+  color: rgb(var(--red-6));
+  margin-left: 3px;
+}
+
+.prompt {
+  color: var(--color-text-2);
+  line-height: 27px;
+  margin: 20px 0 0 3px;
+}
+
+switch {
+  zoom: 0.8;
+}
+
+.verifyCode {
+  border: 1px solid var(--color-border-2);
+  height: 22px;
+  width: 62px;
+}

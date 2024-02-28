@@ -1,0 +1,60 @@
+.loadContainer {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+  padding: 5px 0;
+}
+
+.line {
+  background-color: var(--color-border-3);
+  height: 1px;
+  width: 100px;
+}
+
+.status {
+  color: var(--color-text-2);
+  font-size: 13px;
+  padding: 5px;
+}
+
+.loaderBox {
+  position: relative;
+}
+
+.loader {
+  animation: loader 1s linear infinite;
+  border: 1px solid #aaa;
+  border-radius: 80px;
+  height: 12px;
+  margin-left: 5px;
+  position: relative;
+  transform-origin: 50% 50%;
+  width: 12px;
+}
+
+.loader::after {
+  background-color: #fff;
+  border-radius: 30px;
+  content: '';
+  height: 7px;
+  left: 7px;
+  position: absolute;
+  top: -5px;
+  width: 7px;
+}
+
+@keyframes loader {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.block {
+  background-color: var(--color-bg-2);
+  padding: 10px;
+}

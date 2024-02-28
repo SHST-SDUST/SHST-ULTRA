@@ -1,0 +1,41 @@
+.selector {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 0 7px;
+}
+
+.overview {
+  margin: 0 3px;
+}
+
+.gradeItem {
+  display: flex;
+  justify-content: space-between;
+  padding: 3px 0;
+
+  .name {
+    font-size: 14px;
+  }
+
+  .grade {
+    color: #569fd1;
+    font-size: 20px;
+  }
+
+  .left {
+    display: flex;
+    flex-direction: column;
+    line-height: 21px;
+  }
+
+  .right {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .minor {
+    color: var(--color-text-2);
+  }
+}

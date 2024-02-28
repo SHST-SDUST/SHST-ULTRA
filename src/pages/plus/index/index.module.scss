@@ -1,0 +1,20 @@
+/* stylelint-disable selector-pseudo-class-no-unknown */
+@import '../../../styles/variable.scss';
+
+.iconBox {
+  @include flex-center;
+
+  flex-direction: column;
+  padding: 5px 0;
+  width: 100%;
+
+  :global(.shst-icon) {
+    color: inherit !important;
+    font-size: 27px;
+    margin: 5px 0;
+  }
+
+  .text {
+    color: var(--color-text-1);
+  }
+}

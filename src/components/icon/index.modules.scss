@@ -1,0 +1,14 @@
+.space {
+  margin: 0 5px;
+}
+
+/* stylelint-disable-next-line selector-pseudo-class-no-unknown */
+:global(.shst-icon) {
+  color: inherit;
+  stroke: currentcolor;
+  vertical-align: -2px;
+}
+
+.dilute {
+  opacity: 0.8;
+}

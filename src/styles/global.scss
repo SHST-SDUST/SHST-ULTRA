@@ -1,0 +1,47 @@
+@import './color.scss';
+@import './asse.scss';
+@import './icon.scss';
+
+page {
+  background-color: var(--color-fill-2);
+  box-sizing: border-box;
+  color: var(--color-text-1);
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.5;
+  margin: 0;
+  padding: 10px;
+  text-size-adjust: 100%;
+}
+
+@media (prefers-color-scheme: dark) {
+  page {
+    background-color: var(--color-bg-1);
+  }
+}
+
+button::after {
+  border: unset;
+}
+
+button {
+  background: var(--color-bg-2);
+  border: unset;
+  box-sizing: unset;
+  color: inherit;
+  font-size: inherit;
+  height: auto;
+  line-height: unset;
+  margin: 0;
+  padding: 0;
+}
+
+.adapt {
+  box-sizing: border-box;
+}
+
+.text-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

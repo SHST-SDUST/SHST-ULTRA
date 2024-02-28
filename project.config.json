@@ -1,0 +1,24 @@
+{
+  "miniprogramRoot": "./dist",
+  "projectname": "山科小站-ULTRA",
+  "description": "SHST-ULTRA",
+  "appid": "wx24f0b1a25013a467",
+  "setting": {
+    "urlCheck": false,
+    "es6": false,
+    "enhance": false,
+    "compileHotReLoad": false,
+    "postcss": false,
+    "minified": false
+  },
+  "compileType": "miniprogram",
+  "usingComponents": true,
+  "navigateToMiniProgramAppIdList": [
+    "wxa53da62a53aaddea",
+    "wx2facb7b57eedf7e6",
+    "wx3e1205c6aa103080"
+  ],
+  "uniStatistics": {
+    "enable": true
+  }
+}

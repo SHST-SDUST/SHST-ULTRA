@@ -1,0 +1,22 @@
+/* stylelint-disable selector-pseudo-class-no-unknown */
+@import '../../../../styles/variable.scss';
+
+.tableHeader {
+  @include flex-justify-between;
+
+  height: 30px;
+  padding: 5px;
+
+  :global(.a-btn) {
+    @include flex-center;
+
+    box-sizing: border-box;
+    max-height: 32px;
+    min-height: 32px;
+    min-width: 32px;
+  }
+}
+
+.week {
+  align-self: center;
+}

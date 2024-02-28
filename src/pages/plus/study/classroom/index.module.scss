@@ -1,0 +1,31 @@
+.pickerContainer {
+  height: 100px;
+  width: 77%;
+}
+
+.pickerItem {
+  line-height: 40px;
+}
+
+.floorName {
+  border-bottom: 1px solid var(--color-border-2);
+  margin: 0 0 8px;
+  padding: 10px 0;
+  text-align: center;
+}
+
+.roomItem {
+  background: var(--color-fill-2);
+  display: flex;
+  margin: 3px;
+  padding: 10px 7px;
+}
+
+.row {
+  border-bottom: 1px solid var(--color-border-2);
+  padding: 10px 0;
+
+  > view {
+    width: 33.33%;
+  }
+}

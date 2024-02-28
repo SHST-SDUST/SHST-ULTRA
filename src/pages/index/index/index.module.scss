@@ -1,0 +1,28 @@
+@import '../../../styles//variable.scss';
+
+.shareButton {
+  height: auto;
+}
+
+.swiperContainer {
+  border-radius: 3px;
+  box-sizing: border-box;
+  height: 170px;
+  overflow: hidden;
+
+  > swiper {
+    height: inherit;
+  }
+}
+
+.article {
+  @include flex-align-center;
+
+  border-bottom: 1px solid var(--color-border-2);
+  padding: 7px 0;
+}
+
+.tableItem {
+  border-bottom: 1px solid var(--color-border-2);
+  padding: 5px;
+}

@@ -1,0 +1,26 @@
+@import '../../styles/variable.scss';
+
+.overview {
+  @include flex-align-center;
+
+  padding: 0 10px;
+
+  > view,
+  > image {
+    @include flex-align-center;
+
+    flex-shrink: 0;
+  }
+}
+
+.list {
+  @include flex-justify-between;
+  @include flex-align-center;
+
+  padding: 0 10px;
+}
+
+.icon {
+  height: 21px !important;
+  width: 21px !important;
+}
