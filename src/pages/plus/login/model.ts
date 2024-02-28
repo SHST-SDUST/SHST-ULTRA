@@ -52,8 +52,6 @@ export const loginApp = (account: string, password: string, code: string) => {
     },
   })
     .then(res => {
-      console.log("res :>> ", res.data);
-      console.log("res :>> ", res.data.toString("utf-8"));
       if (res.statusCode === 302 || res.data.indexOf("calender_user_schedule") > -1) {
         return { status: 1, msg: "" };
       } else {

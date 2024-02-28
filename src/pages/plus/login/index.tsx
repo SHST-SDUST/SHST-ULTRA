@@ -4,7 +4,6 @@ import { cs } from "laser-utils";
 import React, { useEffect, useState } from "react";
 
 import { Icon } from "@/components/icon";
-import { useOnLoadEffect } from "@/hooks/use-onload-effect";
 import { LOGO } from "@/pages/user/index/constant";
 import { CACHE } from "@/utils/constant";
 import { Nav } from "@/utils/nav";
