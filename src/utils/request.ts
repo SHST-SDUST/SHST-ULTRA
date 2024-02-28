@@ -28,6 +28,7 @@ export interface RequestInfo {
   debounce?: boolean;
   throttle?: boolean;
   headers?: typeof headers;
+  responseType?: "arraybuffer" | "text";
   success?: RequestOptions["success"];
   fail?: RequestOptions["fail"];
   complete?: RequestOptions["complete"];
@@ -36,7 +37,7 @@ export interface RequestInfo {
 }
 
 export const xhr = (requestInfo: RequestInfo): void => {
-  const options: RequestOptionsAllNeeded = {
+  const defaultOptions: RequestInfo = {
     title: "",
     load: 1,
     url: "",
@@ -53,6 +54,7 @@ export const xhr = (requestInfo: RequestInfo): void => {
     complete: () => void 0,
     completeLoad: () => void 0,
   };
+  const options = defaultOptions as RequestOptionsAllNeeded;
   Object.assign(options, requestInfo);
   const run = () => {
     Loading.start(options);
@@ -62,24 +64,14 @@ export const xhr = (requestInfo: RequestInfo): void => {
       data: options.data,
       method: options.method,
       header: headers,
+      responseType: options.responseType,
       success: function (res) {
         if (options.cookie && !headers.cookie) {
           const cookie = Cookie.get(res);
           headers.cookie = cookie;
           !cookie && options.fail({ ...res, errMsg: "No Cookies" });
         }
-        if (res.statusCode === 200) {
-          if (
-            typeof res.data === "object" &&
-            !(res.data instanceof ArrayBuffer) &&
-            res.data.status
-          ) {
-            if (res.data.status === -1 && res.data.msg) {
-              const popupMsg = res.data.msg;
-              options.completeLoad = () => Toast.info(popupMsg);
-              return void 0;
-            }
-          }
+        if (res.statusCode < 400) {
           try {
             options.success(res);
           } catch (e) {

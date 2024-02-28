@@ -1,4 +1,7 @@
 export const RegExec = {
+  exec: (regex: RegExp, s: string): RegExpExecArray | null => {
+    return regex.exec(s);
+  },
   match: (regex: RegExp, s: string): Array<string> => {
     const result: string[] = [];
     let temp: RegExpExecArray | null = null;

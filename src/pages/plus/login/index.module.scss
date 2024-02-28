@@ -56,3 +56,12 @@ switch {
   height: 22px;
   width: 62px;
 }
+
+.canvas {
+  height: 22px;
+  left: -9999px;
+  position: absolute;
+  top: -9999px;
+  width: 62px;
+  z-index: -999999;
+}

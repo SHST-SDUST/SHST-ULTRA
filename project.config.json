@@ -4,7 +4,7 @@
   "description": "SHST-ULTRA",
   "appid": "wx24f0b1a25013a467",
   "setting": {
-    "urlCheck": false,
+    "urlCheck": true,
     "es6": false,
     "enhance": false,
     "compileHotReLoad": false,
