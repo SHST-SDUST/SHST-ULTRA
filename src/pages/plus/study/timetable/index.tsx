@@ -1,4 +1,4 @@
-import { Navigator, View } from "@tarojs/components";
+import { View } from "@tarojs/components";
 import { cs } from "laser-utils";
 import React, { useEffect, useState } from "react";
 
@@ -7,7 +7,6 @@ import { Icon } from "@/components/icon";
 import { Layout } from "@/components/layout";
 import { TimeTable } from "@/components/time-table";
 import type { TimeTableType } from "@/components/time-table/types";
-import { PATH } from "@/config/page";
 import { useMemoizedFn } from "@/hooks/use-memoized-fn";
 import { useOnLoadEffect } from "@/hooks/use-onload-effect";
 import { App } from "@/utils/app";
@@ -16,7 +15,8 @@ import { Limit } from "@/utils/limit";
 import { Toast } from "@/utils/toast";
 
 import styles from "./index.module.scss";
-import { parseTimeTable, requestTimeTable } from "./model";
+import { requestTimeTable } from "./model";
+import { parseTimeTable } from "./parser";
 
 export default function TimeTablePage() {
   const [week, setWeek] = useState(1);
@@ -75,9 +75,6 @@ export default function TimeTablePage() {
         <View className={styles.tableHeader}>
           <View className={cs(styles.week, "a-lml")}>第{week}周</View>
           <View className="y-center">
-            <Navigator className="a-btn a-btn-square a-lml y-center" url={PATH.TIMETABLE_EDITOR}>
-              <Icon type="jia"></Icon>
-            </Navigator>
             <View className="a-btn a-btn-square a-lml y-center" onClick={onRefresh}>
               <Icon type="shuaxin1"></Icon>
             </View>

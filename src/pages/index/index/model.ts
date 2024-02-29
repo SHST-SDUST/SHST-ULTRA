@@ -1,8 +1,10 @@
-import type { TableCache, TableData } from "@/pages/plus/study/timetable/model";
+import type { RemoteTableInfo, TableCache } from "@/pages/plus/study/timetable/parser";
 import { App } from "@/utils/app";
 import { CACHE, CONFIG_URL, SW_HOST } from "@/utils/constant";
+import { DateTime } from "@/utils/datetime";
 import { HTTP } from "@/utils/request";
 import { LocalStorage } from "@/utils/storage";
+import { Toast } from "@/utils/toast";
 
 export type SwiperItem = {
   img: string;
@@ -28,15 +30,22 @@ const DEFAULT_CONFIG: Config = {
 };
 
 export const requestRemoteConfig = () => {
-  return HTTP.request<Config>({
-    load: 0,
-    url: CONFIG_URL,
-  })
-    .then(res => res.data)
-    .catch(() => DEFAULT_CONFIG);
+  return LocalStorage.getPromise<Config>(CACHE.CONFIG).then(local => {
+    if (local) return local;
+    return HTTP.request<Config>({
+      load: 0,
+      url: CONFIG_URL,
+    })
+      .then(res => {
+        const data = res.data;
+        LocalStorage.setPromise(CACHE.CONFIG, data, new DateTime().nextDay());
+        return data;
+      })
+      .catch(() => DEFAULT_CONFIG);
+  });
 };
 
-export const requestRemoteTimeTable = (load = 1, throttle = false): Promise<TableData | null> => {
+export const requestRemoteTimeTable = (load = 1, throttle = false): Promise<RemoteTableInfo> => {
   console.log("GET TABLE FROM REMOTE");
   return HTTP.request<string>({
     load: load,
@@ -47,7 +56,16 @@ export const requestRemoteTimeTable = (load = 1, throttle = false): Promise<Tabl
       xnxq01id: App.data.curTerm,
     },
   }).then(res => {
-    return null;
+    const table: RemoteTableInfo = [];
+    try {
+      const key = CACHE.PLUS_TABLE;
+      const cache: TableCache = { data: table, term: App.data.curTerm };
+      LocalStorage.setPromise(key, cache);
+    } catch (error) {
+      console.log("Request Table Error:", error);
+      Toast.info("课表解析出错");
+    }
+    return table;
   });
 };
 
@@ -55,14 +73,13 @@ export const requestTimeTable = (
   cache = true,
   load = 1,
   throttle = false
-): Promise<TableData | null> => {
-  const week = App.data.curWeek;
+): Promise<RemoteTableInfo> => {
   const key = CACHE.PLUS_TABLE;
   if (!cache) return requestRemoteTimeTable(load, throttle);
   return LocalStorage.getPromise<TableCache>(key).then(data => {
     if (data && data.term === App.data.curTerm) {
       console.log("GET TABLE FROM CACHE");
-      return { info: data.data, week: week };
+      return data.data;
     } else {
       return requestRemoteTimeTable(load, throttle);
     }

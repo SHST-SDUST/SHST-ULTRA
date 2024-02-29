@@ -3,7 +3,7 @@ export const PATH = {
   HOME: "/pages/index/index/index",
   // LOGIN: "/pages/app/login/index",
   NOT_FOUNT: "/pages/app/404/index",
-  // WEBVIEW: "/pages/app/webview/index",
+  WEBVIEW: "/pages/app/webview/index",
   // PLUS: "/pages/plus/index/index",
   // PLUS_TIMETABLE: "/pages/plus/study/timetable/index",
   // PLUS_CLASSROOM: "/pages/plus/study/classroom/index",
@@ -13,7 +13,7 @@ export const PATH = {
   // PLUS_SITUATION: "/pages/plus/information/situation/index",
   // PLUS_BOOK: "/pages/plus/information/book/index",
   // USER: "/pages/user/index/index",
-  // POST: "/pages/user/post/index",
+  POST: "/pages/user/post/index",
   // ABOUT: "/pages/user/about/index",
   // REWARD: "/pages/user/reward/index",
 };

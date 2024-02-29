@@ -39,8 +39,8 @@ export default function Index() {
     loginApp(account, password, code).then(res => {
       if (res.status === 1) {
         LocalStorage.setPromise(CACHE.USER, { account, password });
-        App.init();
         Nav.launch(PATH.HOME);
+        App.init();
       } else if (res.status === 2) {
         Toast.info(res.msg);
         setStatus(res.msg);

@@ -8,8 +8,9 @@ import { Layout } from "@/components/layout";
 import { OneSentence } from "@/components/one-sentence";
 import type { TimeTableType } from "@/components/time-table/types";
 import { Weather } from "@/components/weather";
+import { PATH } from "@/config/page";
 import { useOnLoadEffect } from "@/hooks/use-onload-effect";
-import { parseTimeTable } from "@/pages/plus/study/timetable/model";
+import { parseTimeTable } from "@/pages/plus/study/timetable/parser";
 import { Event, EVENT_ENUM } from "@/utils/event";
 import { Nav } from "@/utils/nav";
 
@@ -30,9 +31,9 @@ export default function Index() {
   const getTimeTable = (cache = true, load = 1, throttle = false) => {
     requestTimeTable(cache, load, throttle).then(res => {
       if (res) {
-        const list = parseTimeTable(res.info, undefined, true);
+        const list = parseTimeTable(res, undefined, true);
         if (!list.length) {
-          setTable([]); // 刷新可能需要清空
+          setTable([]);
           setTips("No Class Today");
           setTipsContent("今天没有课，快去自习室学习吧");
         } else {
@@ -112,6 +113,7 @@ export default function Index() {
           <RichText className="a-link" nodes={post}></RichText>
         </View>
         <Navigator
+          url={PATH.POST}
           open-type="navigate"
           className={cs(styles.article, "text-ellipsis")}
           hover-class="none"

@@ -4,6 +4,7 @@ export const SW_HOST = "https://jwgl.sdust.edu.cn/jsxsd/";
 export const CONFIG_URL = "https://registry.npmmirror.com/shst-ultra/latest/files/config.json";
 
 export const CACHE = {
+  CONFIG: "CONFIG",
   WEATHER: "WEATHER",
   SENTENCE: "SENTENCE",
   SENTENCE_LONG: "SENTENCE_LONG",
