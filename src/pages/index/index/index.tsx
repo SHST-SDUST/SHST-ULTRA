@@ -8,15 +8,14 @@ import { Layout } from "@/components/layout";
 import { OneSentence } from "@/components/one-sentence";
 import type { TimeTableType } from "@/components/time-table/types";
 import { Weather } from "@/components/weather";
-import { PATH } from "@/config/page";
 import { useOnLoadEffect } from "@/hooks/use-onload-effect";
-import { parseTimeTable } from "@/pages/func/study/timetable/model";
-import { App } from "@/utils/app";
+import { parseTimeTable } from "@/pages/plus/study/timetable/model";
 import { Event, EVENT_ENUM } from "@/utils/event";
 import { Nav } from "@/utils/nav";
 
 import styles from "./index.module.scss";
-import { requestTimeTable, type SwiperItemType } from "./model";
+import type { SwiperItem as SwiperItemType } from "./model";
+import { requestRemoteConfig, requestTimeTable } from "./model";
 
 const NOW = new DateTime().format("yyyy-MM-dd K");
 
@@ -31,8 +30,9 @@ export default function Index() {
   const getTimeTable = (cache = true, load = 1, throttle = false) => {
     requestTimeTable(cache, load, throttle).then(res => {
       if (res) {
-        const list = parseTimeTable(res.data, true);
+        const list = parseTimeTable(res.info, undefined, true);
         if (!list.length) {
+          setTable([]); // 刷新可能需要清空
           setTips("No Class Today");
           setTipsContent("今天没有课，快去自习室学习吧");
         } else {
@@ -48,20 +48,14 @@ export default function Index() {
   };
 
   const onInit = () => {
-    setSwiper(App.data.initData.ads);
-    setPost(App.data.initData.articalName);
-    setPostUrl(App.data.initData.articleUrl);
-    if (!App.data.isSHSTLogin) {
-      setTips("点我前去绑定教务系统账号");
-      setTipsContent("绑定强智教务系统就可以使用山科小站咯");
-    }
+    requestRemoteConfig().then(res => {
+      setSwiper(res.swiper);
+      setPost(res.post.title);
+      setPostUrl(res.post.link);
+    });
     getTimeTable();
   };
   useOnLoadEffect(onInit);
-
-  const bindSHST = () => {
-    !App.data.isSHSTLogin && Nav.webview(PATH.LOGIN);
-  };
 
   useEffect(() => {
     const handler = () => getTimeTable(false, 2, true);
@@ -118,7 +112,6 @@ export default function Index() {
           <RichText className="a-link" nodes={post}></RichText>
         </View>
         <Navigator
-          url={PATH.POST}
           open-type="navigate"
           className={cs(styles.article, "text-ellipsis")}
           hover-class="none"
@@ -147,7 +140,7 @@ export default function Index() {
           </View>
         ))}
         {tips && (
-          <View className={styles.tableItem} onClick={bindSHST}>
+          <View className={styles.tableItem}>
             <View className="y-center a-mt a-mr">
               <Dot type="fill-3"></Dot>
               <View>{tips}</View>

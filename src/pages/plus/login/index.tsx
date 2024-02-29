@@ -7,7 +7,8 @@ import { Icon } from "@/components/icon";
 import { LOGO } from "@/pages/user/index/constant";
 import { App } from "@/utils/app";
 import { Clipboard } from "@/utils/clipboard";
-import { CACHE } from "@/utils/constant";
+import { CACHE, PATH } from "@/utils/constant";
+import { Nav } from "@/utils/nav";
 import { LocalStorage } from "@/utils/storage";
 import { Toast } from "@/utils/toast";
 
@@ -39,6 +40,7 @@ export default function Index() {
       if (res.status === 1) {
         LocalStorage.setPromise(CACHE.USER, { account, password });
         App.init();
+        Nav.launch(PATH.HOME);
       } else if (res.status === 2) {
         Toast.info(res.msg);
         setStatus(res.msg);

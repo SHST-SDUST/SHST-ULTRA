@@ -1,36 +1,53 @@
-import type { RemoteTable, TableCache, TableData } from "@/pages/func/study/timetable/model";
+import type { TableCache, TableData } from "@/pages/plus/study/timetable/model";
 import { App } from "@/utils/app";
-import { CACHE } from "@/utils/constant";
+import { CACHE, CONFIG_URL, SW_HOST } from "@/utils/constant";
 import { HTTP } from "@/utils/request";
 import { LocalStorage } from "@/utils/storage";
 
-export type SwiperItemType = {
+export type SwiperItem = {
   img: string;
   url: string;
 };
 
+export type Config = {
+  swiper: SwiperItem[];
+  post: { title: string; link: string };
+};
+
+const DEFAULT_CONFIG: Config = {
+  swiper: [
+    {
+      img: "http://dev.shst.touchczy.top/public/static/img/logo.jpg",
+      url: "https://mp.weixin.qq.com/s/UnI25nELsIcGXn4EiySZqg",
+    },
+  ],
+  post: {
+    title: "山科小站常见问题",
+    link: "https://mp.weixin.qq.com/s/UnI25nELsIcGXn4EiySZqg",
+  },
+};
+
+export const requestRemoteConfig = () => {
+  return HTTP.request<Config>({
+    load: 0,
+    url: CONFIG_URL,
+  })
+    .then(res => res.data)
+    .catch(() => DEFAULT_CONFIG);
+};
+
 export const requestRemoteTimeTable = (load = 1, throttle = false): Promise<TableData | null> => {
-  if (!App.data.isSHSTLogin) return Promise.resolve(null);
   console.log("GET TABLE FROM REMOTE");
-  return HTTP.request<RemoteTable>({
+  return HTTP.request<string>({
     load: load,
     throttle: throttle,
-    url: App.data.url + "/sw/table",
+    url: SW_HOST + "xskb/xskb_list.do",
     data: {
-      week: App.data.curWeek,
-      term: App.data.curTerm,
+      sfFD: 1,
+      xnxq01id: App.data.curTerm,
     },
   }).then(res => {
-    if (res.data.status === 1) {
-      const data = res.data;
-      const table = data.data.filter(Boolean);
-      const key = CACHE.TIMETABLE_WEEK + res.data.week;
-      const cache: TableCache = { data: table, term: App.data.curTerm };
-      LocalStorage.setPromise(key, cache);
-      return { data: table, week: res.data.week };
-    } else {
-      return null;
-    }
+    return null;
   });
 };
 
@@ -40,12 +57,12 @@ export const requestTimeTable = (
   throttle = false
 ): Promise<TableData | null> => {
   const week = App.data.curWeek;
-  const key = CACHE.TIMETABLE_WEEK + week;
+  const key = CACHE.PLUS_TABLE;
   if (!cache) return requestRemoteTimeTable(load, throttle);
   return LocalStorage.getPromise<TableCache>(key).then(data => {
     if (data && data.term === App.data.curTerm) {
       console.log("GET TABLE FROM CACHE");
-      return { data: data.data, week: week };
+      return { info: data.data, week: week };
     } else {
       return requestRemoteTimeTable(load, throttle);
     }

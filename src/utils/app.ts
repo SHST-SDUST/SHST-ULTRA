@@ -1,6 +1,7 @@
 import Taro from "@tarojs/taro";
 
 import { SW_HOST } from "./constant";
+import { DateTime } from "./datetime";
 import { Event, EVENT_ENUM } from "./event";
 import { globalAppData } from "./global";
 import { Loading } from "./loading";
@@ -27,6 +28,13 @@ export const App = {
         console.log("初始化数据 :>> ", term, termStart);
         if (!/\d{4}-\d{4}-\d{1}/.test(term) || !/\d{4}-\d{2}-\d{2}/.test(termStart)) {
           throw new Error("日期格式解析错误");
+        }
+        const now = new DateTime();
+        if (now.format() < termStart) {
+          App.data.curWeek = 1;
+        } else {
+          const week = now.diff(new DateTime(termStart)).days / 7 + 1;
+          App.data.curWeek = Math.floor(week);
         }
         App.data.curTerm = term;
         App.data.curTermStart = termStart;
