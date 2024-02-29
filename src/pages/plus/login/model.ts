@@ -56,7 +56,8 @@ export const loginApp = (account: string, password: string, code: string) => {
         return { status: 1, msg: "" };
       } else {
         const err = RegExec.exec(/<font[\s\S]*?>(.*?)<\/font>/, res.data);
-        return { status: 2, msg: RegExec.get(err, 1) || "未知错误" };
+        const msg = RegExec.get(err, 1).indexOf("!!") > -1 ? "验证码错误" : "账号或密码错误";
+        return { status: 2, msg };
       }
     })
     .catch(error => {

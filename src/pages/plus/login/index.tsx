@@ -1,12 +1,13 @@
-import { Canvas, Image, Input, Switch, View } from "@tarojs/components";
+import { Canvas, Image, Input, Switch, Text, View } from "@tarojs/components";
 import Taro from "@tarojs/taro";
 import { cs } from "laser-utils";
 import React, { useEffect, useState } from "react";
 
 import { Icon } from "@/components/icon";
 import { LOGO } from "@/pages/user/index/constant";
+import { App } from "@/utils/app";
+import { Clipboard } from "@/utils/clipboard";
 import { CACHE } from "@/utils/constant";
-import { Nav } from "@/utils/nav";
 import { LocalStorage } from "@/utils/storage";
 import { Toast } from "@/utils/toast";
 
@@ -37,10 +38,11 @@ export default function Index() {
     loginApp(account, password, code).then(res => {
       if (res.status === 1) {
         LocalStorage.setPromise(CACHE.USER, { account, password });
-        Nav.back();
+        App.init();
       } else if (res.status === 2) {
         Toast.info(res.msg);
         setStatus(res.msg);
+        loadVerifyCode();
       }
     });
   };
@@ -128,7 +130,16 @@ export default function Index() {
 
       <View className={styles.prompt}>
         <View>提示：</View>
-        <View>1. 账号密码与强智教务系统账号密码保持一致。</View>
+        <View>
+          1. 账号密码与
+          <Text
+            className="a-link"
+            onClick={() => Clipboard.copy("https://jwgl.sdust.edu.cn/jsxsd/")}
+          >
+            强智教务系统
+          </Text>
+          账号密码保持一致。
+        </View>
         <View>2. 密码中使用某些特殊符号会导致无法登录，但不是所有的符号都不行，请悉知。</View>
         <View>3. 由于强智教务系统只对本科生开放，研究生暂时无法登录。</View>
         <View>4. 山科小站系个人业余开发项目，所提供的数据仅供参考，一切以教务系统为准。</View>

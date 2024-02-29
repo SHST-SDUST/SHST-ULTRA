@@ -1,33 +1,46 @@
 import Taro from "@tarojs/taro";
 
+import { SW_HOST } from "./constant";
 import { Event, EVENT_ENUM } from "./event";
 import { globalAppData } from "./global";
 import { Loading } from "./loading";
+import { RegExec } from "./regex";
+import { HTTP } from "./request";
 import { Toast } from "./toast";
 
 export const App = {
   data: globalAppData,
   init: () => {
     Loading.start({ load: 3, title: "加载中" });
-    return Taro.login()
+    return HTTP.request<string>({
+      url: SW_HOST + "jxzl/jxzl_query",
+    })
       .then(res => {
-        /* 判断是否正常初始化 */
-
-        /* resolve */
+        const html = res.data;
+        const termExp = RegExec.exec(/<option [\s\S]*? selected="selected">(.*?)<\/option>/, html);
+        const term = RegExec.get(termExp, 1);
+        const termStartExp = RegExec.exec(/<td title=['"](.*?)['"]>/, html);
+        const termStart = RegExec.get(termStartExp, 1)
+          .replace("年", "-")
+          .replace("月", "-")
+          .replace("日", "");
+        console.log("初始化数据 :>> ", term, termStart);
+        if (!/\d{4}-\d{4}-\d{1}/.test(term) || !/\d{4}-\d{2}-\d{2}/.test(termStart)) {
+          throw new Error("日期格式解析错误");
+        }
+        App.data.curTerm = term;
+        App.data.curTermStart = termStart;
         return Promise.resolve();
       })
       .then(() => {
         Event.commit(EVENT_ENUM.ON_LOADED, null);
       })
       .catch((err: Error) => {
-        console.log(err);
-        Toast.modal(
-          "警告",
-          // @ts-expect-error errMsg
-          "数据初始化失败，点击确定重新初始化数据 \r\n" + err.errMsg || err.message || ""
-        ).then(() => {
-          App.init();
-        });
+        Toast.modal("警告", "数据初始化失败，点击确定重新初始化数据 \r\n" + String(err)).then(
+          () => {
+            App.init();
+          }
+        );
       })
       .finally(() => {
         Loading.end({ load: 3 });
