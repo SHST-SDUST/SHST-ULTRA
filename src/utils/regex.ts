@@ -1,6 +1,7 @@
 export const RegExec = {
-  exec: (regex: RegExp, s: string): RegExpExecArray | null => {
-    return regex.exec(s);
+  exec: (regex: RegExp, s: string, index = 1): string => {
+    const res = regex.exec(s);
+    return res ? res[index] || res[0] : "";
   },
   match: (regex: RegExp, s: string): Array<string> => {
     const result: string[] = [];

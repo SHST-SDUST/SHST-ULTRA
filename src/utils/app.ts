@@ -18,10 +18,8 @@ export const App = {
     })
       .then(res => {
         const html = res.data;
-        const termExp = RegExec.exec(/<option [\s\S]*? selected="selected">(.*?)<\/option>/, html);
-        const term = RegExec.get(termExp, 1);
-        const termStartExp = RegExec.exec(/<td title=['"](.*?)['"]>/, html);
-        const termStart = RegExec.get(termStartExp, 1)
+        const term = RegExec.exec(/<option [\s\S]*? selected="selected">(.*?)<\/option>/, html);
+        const termStart = RegExec.exec(/<td title=['"](.*?)['"]>/, html)
           .replace("年", "-")
           .replace("月", "-")
           .replace("日", "");

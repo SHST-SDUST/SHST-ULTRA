@@ -74,13 +74,14 @@ export const xhr = (requestInfo: RequestInfo): void => {
         if (res.statusCode < 400) {
           try {
             options.success(res);
-          } catch (e) {
+          } catch (error) {
             const ERROR_MSG = "Execute Fail";
             options.fail({ ...res, errMsg: ERROR_MSG });
             options.completeLoad = () => Toast.info(ERROR_MSG);
-            console.log(e);
+            console.log(error);
           }
         } else {
+          Toast.info("请求失败 请重试");
           options.fail({ ...res, errMsg: "Response No Status" });
         }
       },
