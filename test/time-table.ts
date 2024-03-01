@@ -14,11 +14,8 @@ classes.forEach((item, index) => {
     if (value.startsWith("&nbsp;")) continue;
     const nameGroup = value.split(/(<\/br>)|(<br\/>)/g);
     const name = R.get(nameGroup, 0).replace("<br>", "").replace(/[（]/g, "(").replace("）", ")");
-    const teacher = R.get(R.exec(/<font[\s\S]*?title='老师'[\s\S]*?>(.*?)<\/font>/g, value), 1);
-    const weekStr = R.get(
-      R.exec(/<font[\s\S]*?title='周次\(节次\)'[\s\S]*?>(.*?)<\/font>/g, value),
-      1
-    )
+    const teacher = R.exec(/<font[\s\S]*?title='老师'[\s\S]*?>(.*?)<\/font>/g, value);
+    const weekStr = R.exec(/<font[\s\S]*?title='周次\(节次\)'[\s\S]*?>(.*?)<\/font>/g, value)
       .replace(/[,=\\]/g, ",")
       .replace(/[（]/g, "(")
       .replace("）", ")");
@@ -31,7 +28,7 @@ classes.forEach((item, index) => {
       weekItem = week.replace(/[单双()周]/g, "") + weekItem;
       weeks.push(weekItem);
     }
-    const classroom = R.get(R.exec(/<font[\s\S]*?title='教室'[\s\S]*?>(.*?)<\/font>/g, value), 1);
+    const classroom = R.exec(/<font[\s\S]*?title='教室'[\s\S]*?>(.*?)<\/font>/g, value);
     table.push({
       day,
       serial,

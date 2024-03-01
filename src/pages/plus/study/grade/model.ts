@@ -1,5 +1,7 @@
-import { App } from "@/utils/app";
+import { SW_HOST } from "@/utils/constant";
 import { HTTP } from "@/utils/request";
+
+import { htmlToGrades } from "./parser";
 
 export type QueryTerms = { show: string; value: string }[];
 
@@ -20,15 +22,20 @@ export const INIT_QUERY_TERMS: QueryTerms = [
   { show: "请稍后", value: "" },
 ];
 
-export const requestForGrade = (term: string): Promise<GradeType[] | null> => {
-  const query = term === "" ? "" : "/" + term;
-  return HTTP.request<{ info: GradeType[] }>({
+export const requestForGrade = (term: string): Promise<GradeType[]> => {
+  return HTTP.request<string>({
     load: 2,
     throttle: true,
-    url: App.data.url + "/plus/grade" + query,
+    method: "POST",
+    url: SW_HOST + "kscj/cjcx_list_new",
+    data: {
+      kksj: term,
+      xsfs: "all",
+      showType: 2,
+      kcxz: "",
+      kcmc: "",
+    },
   }).then(res => {
-    const data = res.data.info;
-    if (data) return data;
-    return null;
+    return htmlToGrades(res.data);
   });
 };

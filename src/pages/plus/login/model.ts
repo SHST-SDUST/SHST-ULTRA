@@ -52,16 +52,20 @@ export const loginApp = (account: string, password: string, code: string) => {
     },
   })
     .then(res => {
-      if (res.statusCode === 302 || res.data.indexOf("calender_user_schedule") > -1) {
+      if (
+        res.statusCode === 302 ||
+        res.data.indexOf("calender_user_schedule") > -1 ||
+        res.data.indexOf("TopUserSetting") > -1
+      ) {
         return { status: 1, msg: "" };
       } else {
         const err = RegExec.exec(/<font[\s\S]*?>(.*?)<\/font>/, res.data);
-        const msg = RegExec.get(err, 1).indexOf("!!") > -1 ? "验证码错误" : "账号或密码错误";
+        const msg = err.indexOf("!!") > -1 ? "验证码错误" : "账号或密码错误";
         return { status: 2, msg };
       }
     })
     .catch(error => {
-      if (error && /url not in domain list/.test(error.errMsg)) {
+      if (error && /domain list/.test(error.errMsg)) {
         return { status: 1, msg: "" };
       }
       return { status: 2, msg: "未知错误" };
