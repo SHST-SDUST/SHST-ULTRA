@@ -1,5 +1,7 @@
-import { App } from "@/utils/app";
+import { SW_HOST } from "@/utils/constant";
 import { HTTP } from "@/utils/request";
+
+import { htmlToExams } from "./parser";
 
 export type QueryTerms = { show: string; value: string }[];
 
@@ -14,14 +16,17 @@ export type ExamType = {
 export const INIT_QUERY_TERMS: QueryTerms = [{ show: "请稍后", value: "" }];
 
 export const requestForExam = (term: string): Promise<ExamType[] | null> => {
-  const query = term === "" ? "" : "/" + term;
-  return HTTP.request<{ info: ExamType[] }>({
+  return HTTP.request<string>({
     load: 2,
     throttle: true,
-    url: App.data.url + "/plus/exam" + query,
+    method: "POST",
+    url: SW_HOST + "xsks/xsksap_list",
+    data: {
+      xnxqid: term,
+      xqlbmc: "",
+      xqlb: "",
+    },
   }).then(res => {
-    const data = res.data.info;
-    if (data) return data;
-    return null;
+    return htmlToExams(res.data);
   });
 };

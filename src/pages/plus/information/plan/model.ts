@@ -1,5 +1,7 @@
-import { App } from "@/utils/app";
+import { SW_HOST } from "@/utils/constant";
 import { HTTP } from "@/utils/request";
+
+import { htmlToPlans } from "./parser";
 
 export type PlanItem = {
   no: string;
@@ -13,11 +15,10 @@ export type PlanItem = {
 };
 
 export const requestForPlan = () => {
-  return HTTP.request<{ info: PlanItem[] }>({
+  return HTTP.request<string>({
     load: 3,
-    url: App.data.url + "/plus/complyPlan",
+    url: SW_HOST + "pyfa/pyfa_query",
   }).then(res => {
-    if (!res.data) return [];
-    return res.data.info;
+    return htmlToPlans(res.data);
   });
 };
