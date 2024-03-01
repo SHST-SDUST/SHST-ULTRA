@@ -10,13 +10,15 @@ import type { TimeTableType } from "@/components/time-table/types";
 import { Weather } from "@/components/weather";
 import { PATH } from "@/config/page";
 import { useOnLoadEffect } from "@/hooks/use-onload-effect";
+import { requestTimeTable } from "@/pages/plus/study/timetable/model";
 import { parseTimeTable } from "@/pages/plus/study/timetable/parser";
+import { App } from "@/utils/app";
 import { Event, EVENT_ENUM } from "@/utils/event";
 import { Nav } from "@/utils/nav";
 
 import styles from "./index.module.scss";
 import type { SwiperItem as SwiperItemType } from "./model";
-import { requestRemoteConfig, requestTimeTable } from "./model";
+import { requestRemoteConfig } from "./model";
 
 const NOW = new DateTime().format("yyyy-MM-dd K");
 
@@ -28,10 +30,10 @@ export default function Index() {
   const [tips, setTips] = useState("数据加载中");
   const [tipsContent, setTipsContent] = useState("数据加载中");
 
-  const getTimeTable = (cache = true, load = 1, throttle = false) => {
-    requestTimeTable(cache, load, throttle).then(res => {
+  const getTimeTable = (cache = true, throttle = false) => {
+    requestTimeTable(cache, throttle).then(res => {
       if (res) {
-        const list = parseTimeTable(res, undefined, true);
+        const list = parseTimeTable(res, App.data.curWeek, true);
         if (!list.length) {
           setTable([]);
           setTips("No Class Today");
@@ -59,7 +61,7 @@ export default function Index() {
   useOnLoadEffect(onInit);
 
   useEffect(() => {
-    const handler = () => getTimeTable(false, 2, true);
+    const handler = () => getTimeTable(false, true);
     Event.on(EVENT_ENUM.REFRESH_TIMETABLE, handler);
     return () => {
       Event.off(EVENT_ENUM.REFRESH_TIMETABLE, handler);
@@ -91,11 +93,7 @@ export default function Index() {
         title={NOW}
         captainSlot={
           <View className="y-center">
-            <Icon
-              className="a-lmr"
-              type="shuaxin"
-              onClick={() => getTimeTable(false, 2, true)}
-            ></Icon>
+            <Icon className="a-lmr" type="shuaxin" onClick={() => getTimeTable(false, true)}></Icon>
             <Button
               open-type="share"
               className={cs("shst-icon icon-fenxiang", styles.shareButton)}

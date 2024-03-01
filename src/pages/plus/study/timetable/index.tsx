@@ -24,9 +24,9 @@ export default function TimeTablePage() {
   const [table, setTable] = useState<TimeTableType>([]);
 
   const getTimeTable = (currentWeek: number, cache = true, throttle = false) => {
-    requestTimeTable(currentWeek, cache, throttle).then(res => {
+    requestTimeTable(cache, throttle).then(res => {
       if (res) {
-        const list = parseTimeTable(res.info, currentWeek);
+        const list = parseTimeTable(res, currentWeek);
         setTable(list);
       } else {
         Toast.info("加载失败，请刷新重试");
