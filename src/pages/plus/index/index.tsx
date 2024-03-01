@@ -4,19 +4,14 @@ import React from "react";
 import { Icon } from "@/components/icon";
 import { Layout } from "@/components/layout";
 import { PATH } from "@/config/page";
-import { useOnLoadEffect } from "@/hooks/use-onload-effect";
 import { App } from "@/utils/app";
 import { Nav } from "@/utils/nav";
 
 import styles from "./index.module.scss";
 
 export default function Func() {
-  useOnLoadEffect(() => {
-    !App.data.isPLUSLogin && Nav.to(PATH.PLUS_LOGIN);
-  });
-
   const onNav = (url: string, check?: boolean) => {
-    if (check && !App.data.isPLUSLogin) {
+    if (check && !App.data.isInitialized) {
       Nav.to(PATH.PLUS_LOGIN);
     } else {
       Nav.to(url);

@@ -9,31 +9,31 @@ export default defineAppConfig({
     navigationBarBackgroundColor: "@navigationBarBackgroundColor",
     backgroundColor: "@backgroundColor",
   },
-  // tabBar: {
-  //   color: "@tabBarColor",
-  //   selectedColor: "@tabBarSelectedColor",
-  //   backgroundColor: "@backgroundColor",
-  //   list: [
-  //     {
-  //       iconPath: "./static/index.png",
-  //       selectedIconPath: "./static/index-active.png",
-  //       pagePath: PATH.HOME.slice(1),
-  //       text: "首页",
-  //     },
-  //     {
-  //       iconPath: "./static/func.png",
-  //       selectedIconPath: "./static/func-active.png",
-  //       pagePath: PATH.PLUS.slice(1),
-  //       text: "功能",
-  //     },
-  //     {
-  //       iconPath: "./static/user.png",
-  //       selectedIconPath: "./static/user-active.png",
-  //       pagePath: PATH.USER.slice(1),
-  //       text: "用户",
-  //     },
-  //   ],
-  // },
+  tabBar: {
+    color: "@tabBarColor",
+    selectedColor: "@tabBarSelectedColor",
+    backgroundColor: "@backgroundColor",
+    list: [
+      {
+        iconPath: "./static/index.png",
+        selectedIconPath: "./static/index-active.png",
+        pagePath: PATH.HOME.slice(1),
+        text: "首页",
+      },
+      {
+        iconPath: "./static/func.png",
+        selectedIconPath: "./static/func-active.png",
+        pagePath: PATH.PLUS.slice(1),
+        text: "功能",
+      },
+      {
+        iconPath: "./static/user.png",
+        selectedIconPath: "./static/user-active.png",
+        pagePath: PATH.USER.slice(1),
+        text: "用户",
+      },
+    ],
+  },
   darkmode: true,
   themeLocation: "config/theme.json",
   permission: {

@@ -24,7 +24,7 @@ export const parseTimeTable = (
   const timeTable: Array<TimeTableItem> = [];
   const curWeek = week || App.data.curWeek;
   const colorList = App.data.colorList;
-  const currentDay = new DateTime().getDay() || 7;
+  const currentDay = (new DateTime().getDay() || 7) - 1;
   const checkIsCurrentWeek = (weeks: string[]) => {
     const decideCurWeek = (str: string): boolean => {
       const [start, end] = str.split("-").map(v => Number(v) >> 0);
@@ -113,5 +113,6 @@ export const htmlToTable = (html: string) => {
       });
     }
   });
+  console.log("table :>> ", table);
   return table;
 };

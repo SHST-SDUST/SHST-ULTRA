@@ -38,12 +38,14 @@ export const App = {
         }
         App.data.curTerm = term;
         App.data.curTermStart = termStart;
+        App.data.isInitialized = true;
         return Promise.resolve();
       })
       .then(() => {
         Event.commit(EVENT_ENUM.ON_LOADED, null);
       })
       .catch((err: Error) => {
+        App.data.isInitialized = false;
         Toast.modal("警告", "数据初始化失败，点击确定重新初始化数据 \r\n" + String(err)).then(
           () => {
             App.init();
