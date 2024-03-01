@@ -1,8 +1,8 @@
-import { App } from "@/utils/app";
-import { CACHE } from "@/utils/constant";
+import { CACHE, SW_HOST } from "@/utils/constant";
 import { HTTP } from "@/utils/request";
 import { LocalStorage } from "@/utils/storage";
-import { Toast } from "@/utils/toast";
+
+import { htmlToUser } from "./parser";
 
 export type UserInfo = {
   name: string;
@@ -11,19 +11,16 @@ export type UserInfo = {
 };
 
 export const requestForUserInfo = (): Promise<UserInfo | null> => {
-  return LocalStorage.getPromise<UserInfo>(CACHE.USER_INFO).then(res => {
-    if (res && res.account) return res;
-    return HTTP.request<{ info: UserInfo }>({
+  return LocalStorage.getPromise<UserInfo>(CACHE.USER_INFO).then(cache => {
+    if (cache && cache.account) return cache;
+    return HTTP.request<string>({
       load: 1,
       throttle: true,
-      url: App.data.url + "/sw/userInfo",
-    }).then(data => {
-      if (!data || !data.data) {
-        Toast.info("服务器错误");
-        return null;
-      }
-      LocalStorage.setPromise(CACHE.USER_INFO, data.data.info);
-      return data.data.info;
+      url: SW_HOST + "grxx/xsxx",
+    }).then(res => {
+      const user = htmlToUser(res.data);
+      LocalStorage.setPromise(CACHE.USER_INFO, user);
+      return user;
     });
   });
 };
