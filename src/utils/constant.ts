@@ -1,3 +1,5 @@
+import { DateTime } from "./datetime";
+
 export { PATH } from "../config/page";
 
 export const SW_HOST = "https://jwgl.sdust.edu.cn/jsxsd/";
@@ -16,3 +18,7 @@ export const CACHE = {
 
 export const DEV_HOST = "http://dev.shst.touchczy.top";
 export const REMOTE_STATIC = DEV_HOST + "/public/static/";
+
+export const NOW = new DateTime();
+export const TODAY = NOW.format();
+export const EXPLORATION = "2024-03-03";

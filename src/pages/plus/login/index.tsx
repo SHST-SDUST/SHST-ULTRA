@@ -1,5 +1,5 @@
 import { Canvas, Image, Input, Switch, Text, View } from "@tarojs/components";
-import Taro from "@tarojs/taro";
+import Taro, { useLoad } from "@tarojs/taro";
 import { cs } from "laser-utils";
 import React, { useEffect, useState } from "react";
 
@@ -74,6 +74,13 @@ export default function Index() {
     });
   }, []);
 
+  useLoad(e => {
+    if (e.account && e.password) {
+      setAccount(e.account);
+      setPassword(e.password);
+    }
+  });
+
   return (
     <React.Fragment>
       <View className="x-center">
@@ -114,13 +121,11 @@ export default function Index() {
               name="code"
               placeholder="验证码"
             />
-            {base64Captcha && (
-              <Image
-                src={BASE64_PREFIX + base64Captcha}
-                className={styles.verifyCode}
-                onClick={loadVerifyCode}
-              ></Image>
-            )}
+            <Image
+              src={BASE64_PREFIX + base64Captcha}
+              className={styles.verifyCode}
+              onClick={loadVerifyCode}
+            ></Image>
           </View>
         </View>
         <View className="a-flex a-lmt">
