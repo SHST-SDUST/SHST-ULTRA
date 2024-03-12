@@ -4,7 +4,7 @@ import { RegExec as R } from "../src/utils/regex";
 
 const html = ``;
 
-type Course = { day: number; serial: number; data: string[] };
+type Course = { day: number; serial: number; data: string[][] };
 const courses: Record<string, Course[]> = {};
 const content = R.exec(/<table[\s]*id="kbtable"[\s\S]*?>([\s\S]*?)<\/table>/g, html);
 const group = R.match(
@@ -25,8 +25,9 @@ group.forEach((item, index) => {
     if (k === 0 || !it) return void 0;
     const day = Math.floor((k - 1) / 5);
     const serial = Math.floor((k - 1) % 5) + 1;
-    const match = R.exec(/<div id='' class="kbcontent1">([\s\S]*?)<\/div>/, it);
-    row.push({ day, serial, data: match.split(/<\/?br>/) });
+    const list = R.match(/<div id='' class="kbcontent1">([\s\S]*?)<\/div>/g, it);
+    const unit = list.map(iter => iter.split(/<\/?br>/));
+    row.push({ day, serial, data: unit });
   });
 });
 console.log("courses :>> ", JSON.stringify(courses));

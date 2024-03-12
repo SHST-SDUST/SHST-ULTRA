@@ -1,13 +1,15 @@
 import { View } from "@tarojs/components";
 import { cs } from "laser-utils";
 import type { FC } from "react";
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
+
+import { App } from "@/utils/app";
 
 import { Dialog } from "../dialog";
 import { Divider } from "../divider";
 import { Dot } from "../dot";
 import styles from "./index.module.scss";
-import type { CourseTableItem, CourseTableType } from "./types";
+import type { CourseTableItem, CourseTableType, DefinedCourseRecord } from "./types";
 import { getKey, TABLE_CONFIG } from "./utils";
 
 export const TimeTable: FC<{
@@ -18,7 +20,22 @@ export const TimeTable: FC<{
 }> = props => {
   const [dialogContent, setDialogContent] = useState<CourseTableItem | null>(null);
 
-  const table = props.timeTable;
+  const table = useMemo(() => {
+    const result: DefinedCourseRecord = {};
+    for (const item of props.timeTable) {
+      const node = { ...item };
+      if (!node.background) {
+        const colorList = App.data.colorList;
+        const group = node.data.map(it => it.join(""));
+        const uniqueNum = group.reduce((pre, cur) => pre + cur.charCodeAt(0), 0);
+        const background = colorList[uniqueNum % colorList.length];
+        node.background = background;
+      }
+      const key = getKey(node.weekDay, node.serial);
+      result[key] = item;
+    }
+    return result;
+  }, [props.timeTable]);
 
   const onClose = () => {
     setDialogContent(null);
