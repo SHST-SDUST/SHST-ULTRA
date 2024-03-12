@@ -58,7 +58,7 @@ export default function Index() {
 
   return (
     <React.Fragment>
-      <Layout title="教师课表">
+      <Layout title="课程信息">
         <View className={styles.selector}>
           <View>请选择学院</View>
           <Picker value={index} range={buildingRange} className="a-link" onChange={onPickChange}>

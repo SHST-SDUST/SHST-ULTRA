@@ -21,4 +21,4 @@ export const REMOTE_STATIC = DEV_HOST + "/public/static/";
 
 export const NOW = new DateTime();
 export const TODAY = NOW.format();
-export const EXPLORATION = "2024-03-03";
+export const EXPLORATION = "2024-03-14";
