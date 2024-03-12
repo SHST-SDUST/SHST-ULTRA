@@ -12,10 +12,8 @@ import styles from "./index.module.scss";
 import type { CourseTableItem, CourseTableType, DefinedCourseRecord } from "./types";
 import { getKey, TABLE_CONFIG } from "./utils";
 
-export const TimeTable: FC<{
+export const CourseTimeTable: FC<{
   className?: string;
-  week: number;
-  termStart?: string;
   timeTable: CourseTableType;
 }> = props => {
   const [dialogContent, setDialogContent] = useState<CourseTableItem | null>(null);
@@ -32,7 +30,7 @@ export const TimeTable: FC<{
         node.background = background;
       }
       const key = getKey(node.weekDay, node.serial);
-      result[key] = item;
+      result[key] = node;
     }
     return result;
   }, [props.timeTable]);
@@ -62,8 +60,12 @@ export const TimeTable: FC<{
                               className={styles.tableBlock}
                               style={{ background: item.background }}
                             >
-                              {item.data.map((it, index) => (
-                                <View key={index}>{it}</View>
+                              {item.data.map((row, rIndex) => (
+                                <View key={rIndex} className={cs(rIndex && "a-mt-6")}>
+                                  {row.map((column, cIndex) => (
+                                    <View key={cIndex}>{column}</View>
+                                  ))}
+                                </View>
                               ))}
                             </View>
                           ))(table[getKey(columnIndex, rowIndex)])}
@@ -79,9 +81,13 @@ export const TimeTable: FC<{
       <Dialog visible={!!dialogContent} onClose={onClose} className={styles.dialog}>
         {dialogContent &&
           dialogContent.data.map((item, index) => (
-            <View key={index} className={cs("a-mt-10 a-mb-10 a-flex", index && "a-lmt")}>
-              <Dot name={item}></Dot>
-              <View className="a-lml">{item}</View>
+            <View key={index} className={cs("a-mt-10 a-mb-10", index && "a-lmt")}>
+              {item.map((it, i) => (
+                <View key={i} className="y-center a-lml">
+                  {i === 0 && <Dot name={it}></Dot>}
+                  <View className="a-mt a-ml">{it}</View>
+                </View>
+              ))}
             </View>
           ))}
       </Dialog>

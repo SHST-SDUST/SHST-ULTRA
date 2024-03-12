@@ -1,4 +1,4 @@
-import { Button, View } from "@tarojs/components";
+import { Button, Navigator, View } from "@tarojs/components";
 import React from "react";
 
 import { Icon } from "@/components/icon";
@@ -41,7 +41,7 @@ export default function Func() {
         </View>
       </Layout>
 
-      <Layout title="信息" color="rgb(var(--purple-5))" inheritColor>
+      <Layout title="信息" color="rgb(var(--green-5))" inheritColor>
         <View className="y-center">
           <View className={styles.iconBox} onClick={() => onNav(PATH.PLUS_PLAN, false)}>
             <Icon type="jihua"></Icon>
@@ -54,6 +54,33 @@ export default function Func() {
           <View className={styles.iconBox} onClick={() => onNav(PATH.PLUS_BOOK, true)}>
             <Icon type="jiaofu-1"></Icon>
             <View className={styles.text}>教材信息</View>
+          </View>
+          <Navigator
+            className={styles.iconBox}
+            target="miniProgram"
+            app-id="wx387c0e87230e4cc9"
+            hover-class="none"
+            version="release"
+          >
+            <Icon type="nav"></Icon>
+            <View className={styles.text}>山科小站</View>
+          </Navigator>
+        </View>
+      </Layout>
+
+      <Layout title="拓展" color="rgb(var(--purple-5))" inheritColor>
+        <View className="y-center">
+          <View className={styles.iconBox} onClick={() => onNav(PATH.PLUS_COURSE, false)}>
+            <Icon type="tubiao-"></Icon>
+            <View className={styles.text}>教室课表</View>
+          </View>
+          <View className={styles.iconBox} onClick={() => onNav(PATH.PLUS_PLAN, true)}>
+            <Icon type="mc-wcqk"></Icon>
+            <View className={styles.text}>教师课表</View>
+          </View>
+          <View className={styles.iconBox} onClick={() => onNav(PATH.PLUS_PLAN, true)}>
+            <Icon type="jiaofu-1"></Icon>
+            <View className={styles.text}>课程信息</View>
           </View>
           <Button open-type="feedback" className={styles.iconBox} hover-class="none">
             <Icon type="bianji"></Icon>

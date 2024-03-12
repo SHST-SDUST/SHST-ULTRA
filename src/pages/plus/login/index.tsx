@@ -121,11 +121,17 @@ export default function Index() {
               name="code"
               placeholder="验证码"
             />
-            <Image
-              src={BASE64_PREFIX + base64Captcha}
-              className={styles.verifyCode}
-              onClick={loadVerifyCode}
-            ></Image>
+            {base64Captcha ? (
+              <Image
+                src={BASE64_PREFIX + base64Captcha}
+                className={styles.verifyCode}
+                onClick={loadVerifyCode}
+              ></Image>
+            ) : (
+              <View className={cs(styles.verifyCode, "x-center y-center")} onClick={loadVerifyCode}>
+                <View>点击刷新</View>
+              </View>
+            )}
           </View>
         </View>
         <View className="a-flex a-lmt">
