@@ -70,7 +70,7 @@ export default function Func() {
 
       <Layout title="扩展" color="rgb(var(--purple-5))" inheritColor>
         <View className="y-center">
-          <View className={styles.iconBox} onClick={() => onNav(PATH.PLUS_COURSE, false)}>
+          <View className={styles.iconBox} onClick={() => onNav(PATH.PLUS_CLASSROOM_EXT, false)}>
             <Icon type="classroom"></Icon>
             <View className={styles.text}>教室课表</View>
           </View>
@@ -78,7 +78,7 @@ export default function Func() {
             <Icon type="tubiao-"></Icon>
             <View className={styles.text}>教师课表</View>
           </View>
-          <View className={styles.iconBox} onClick={() => onNav(PATH.PLUS_PLAN, true)}>
+          <View className={styles.iconBox} onClick={() => onNav(PATH.PLUS_COURSE, true)}>
             <Icon type="calendar"></Icon>
             <View className={styles.text}>课程信息</View>
           </View>

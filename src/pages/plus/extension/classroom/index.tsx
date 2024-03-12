@@ -21,8 +21,8 @@ export default function Index() {
   const [courseData, setCourseData] = useState<CourseTableItem[]>([]);
   const buildingRange = useMemo(() => ["请选择", ...QUERY_FLOOR.map(it => it[0])], []);
 
-  const loadTeacherCourseData = (academy: string) => {
-    return requestForCourses(academy).then(data => {
+  const loadCourseData = (region: string, building: string) => {
+    return requestForCourses(region, building).then(data => {
       courseMap.current = data;
       const keys = Object.keys(data);
       setLoaded(true);
@@ -47,7 +47,7 @@ export default function Index() {
     if (current === 0) return void 0;
     setText(buildingRange[current]);
     const data = QUERY_FLOOR[current - 1];
-    loadTeacherCourseData(data[1]);
+    loadCourseData(data[2], data[1]);
   };
 
   const onClassRoomPickChange: CommonEventFunction<PickerSelectorProps.ChangeEventDetail> = e => {
@@ -58,9 +58,9 @@ export default function Index() {
 
   return (
     <React.Fragment>
-      <Layout title="教师课表">
+      <Layout title="教室课表">
         <View className={styles.selector}>
-          <View>请选择学院</View>
+          <View>请选择教学楼</View>
           <Picker value={index} range={buildingRange} className="a-link" onChange={onPickChange}>
             <View>{buildingRange[index]}</View>
           </Picker>
@@ -76,7 +76,7 @@ export default function Index() {
               className="a-link a-fontsize-13"
               onChange={onClassRoomPickChange}
             >
-              <View>{courseTags[classRoomIndex]?.split("(")[0] || ""}</View>
+              <View>{courseTags[classRoomIndex]}</View>
             </Picker>
           }
         >
