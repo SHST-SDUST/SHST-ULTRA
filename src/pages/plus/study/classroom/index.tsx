@@ -99,12 +99,10 @@ export default function Index() {
               </View>
               <View className="y-center">
                 <Dot background={prev[item] ? "#FF5722" : "#009688"}></Dot>
-
                 <view className="text-ellipsis">{prev[item] ? prev[item].name : "无课"}</view>
               </View>
               <View className="y-center">
-                <Dot background={prev[item] ? "#FF5722" : "#009688"}></Dot>
-
+                <Dot background={next[item] ? "#FF5722" : "#009688"}></Dot>
                 <View className="text-ellipsis">{next[item] ? next[item].name : "无课"}</View>
               </View>
             </View>

@@ -1,3 +1,5 @@
+import { TSON } from "laser-utils";
+
 import { RegExec as R } from "@/utils/regex";
 
 import type { ClassItem } from "./model";
@@ -12,11 +14,11 @@ export const htmlToClassroom = (html: string) => {
     .replace(/（/g, "(")
     .replace(/）/g, ")");
   const roomsTemp = R.exec(/roomlist = (.*?);/, text);
-  const roomsData: number[] = JSON.parse(roomsTemp) || [];
+  const roomsData: number[] = TSON.parse(roomsTemp) || [];
   const nowTemp = R.exec(/dictionary = (.*?);/, text);
-  const nowData: Record<string, string> = JSON.parse(nowTemp) || [];
+  const nowData: Record<string, string> = TSON.parse(nowTemp) || {};
   const nextTemp = R.exec(/dictionary_next = (.*?);/, text);
-  const nextData: Record<string, string> = JSON.parse(nextTemp) || [];
+  const nextData: Record<string, string> = TSON.parse(nextTemp) || {};
   const rooms: number[] = roomsData;
   state.view = R.exec(/<input[\s\S]*?name="__VIEWSTATE"[\s\S]*?value="(.*?)"/, html);
   state.generator = R.exec(/<input[\s\S]*?name="__VIEWSTATEGENERATOR"[\s\S]*?value="(.*?)"/, html);
