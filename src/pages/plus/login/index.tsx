@@ -149,7 +149,17 @@ export default function Index() {
       <View className={styles.prompt}>
         <View>提示：</View>
         <View>
-          1. 账号密码与
+          1. 如果验证码一直加载的话可以尝试点击刷新按钮，
+          <Text
+            className="a-link"
+            onClick={() => Nav.webview("https://mp.weixin.qq.com/s/bg5ub3Js3K8pa-gDtVRMKg")}
+          >
+            使用GiWIFI暂时无法登录
+          </Text>
+          。
+        </View>
+        <View>
+          2. 账号密码与
           <Text
             className="a-link"
             onClick={() => Clipboard.copy("https://jwgl.sdust.edu.cn/jsxsd/")}
@@ -158,9 +168,9 @@ export default function Index() {
           </Text>
           账号密码保持一致。
         </View>
-        <View>2. 密码中使用某些特殊符号会导致无法登录，但不是所有的符号都不行，请悉知。</View>
-        <View>3. 由于强智教务系统只对本科生开放，研究生暂时无法登录。</View>
-        <View>4. 山科小站系个人业余开发项目，所提供的数据仅供参考，一切以教务系统为准。</View>
+        <View>3. 密码中使用某些特殊符号会导致无法登录，但不是所有的符号都不行，请悉知。</View>
+        <View>4. 由于强智教务系统只对本科生开放，研究生暂时无法登录。</View>
+        <View>5. 山科小站系个人业余开发项目，所提供的数据仅供参考，一切以教务系统为准。</View>
       </View>
 
       <Canvas
