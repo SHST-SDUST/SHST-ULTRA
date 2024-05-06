@@ -13,7 +13,7 @@ interface EventBusParams {
   [EVENT_ENUM.REFRESH_TIMETABLE]: null;
 }
 
-declare module "laser-utils" {
+declare module "laser-utils/dist/event-bus" {
   // eslint-disable-next-line @typescript-eslint/no-empty-interface
   interface EventBusType extends EventBusParams {}
 }
