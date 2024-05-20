@@ -32,6 +32,8 @@ export default function Index() {
   const [base64Captcha, setBase64Captcha] = useState<string | null>(null);
 
   const login = () => {
+    // 这里可能存在问题[未复现]
+    // 首先登录`A`账号成功 此时无法登录`B`账号 需要清理`Cookie`
     if (account.length == 0 || password.length == 0 || code.length == 0) {
       Toast.info("用户名/密码/验证码不能为空");
       return void 0;
