@@ -19,7 +19,9 @@ export default defineConfig(async merge => {
     sourceRoot: "src",
     outputRoot: "dist",
     plugins: [],
-    defineConstants: {},
+    defineConstants: {
+      "process.env.NOW": JSON.stringify(Date.now()),
+    },
     copy: {
       patterns: [],
       options: {},

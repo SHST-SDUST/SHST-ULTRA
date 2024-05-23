@@ -24,6 +24,12 @@ export class DateTime extends DT {
     return this;
   }
 
+  public nextMinute(n = 1) {
+    this.setMinutes(this.getMinutes() + n);
+    this.setSeconds(0, 0);
+    return this;
+  }
+
   public deferMonth(n = 1) {
     this.setMonth(this.getMonth() + n);
     return this;
@@ -36,6 +42,11 @@ export class DateTime extends DT {
 
   public deferHour(n = 1) {
     this.setHours(this.getHours() + n);
+    return this;
+  }
+
+  public deferMinute(n = 1) {
+    this.setMinutes(this.getMinutes() + n);
     return this;
   }
 }

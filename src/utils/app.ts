@@ -1,11 +1,10 @@
 import Taro from "@tarojs/taro";
 
-import { SW_HOST } from "./constant";
+import { PROD_HOST } from "./constant";
 import { DateTime } from "./datetime";
 import { Event, EVENT_ENUM } from "./event";
 import { globalAppData } from "./global";
 import { Loading } from "./loading";
-import { RegExec } from "./regex";
 import { HTTP } from "./request";
 import { Toast } from "./toast";
 
@@ -13,16 +12,12 @@ export const App = {
   data: globalAppData,
   init: () => {
     Loading.start({ load: 3, title: "加载中" });
-    return HTTP.request<string>({
-      url: SW_HOST + "jxzl/jxzl_query",
+    return HTTP.request<{ term: string; start: string }>({
+      url: PROD_HOST + "/ext/term",
     })
       .then(res => {
-        const html = res.data;
-        const term = RegExec.exec(/<option [\s\S]*? selected="selected">(.*?)<\/option>/, html);
-        const termStart = RegExec.exec(/<td title=['"](.*?)['"]>/, html)
-          .replace("年", "-")
-          .replace("月", "-")
-          .replace("日", "");
+        const term = res.data.term;
+        const termStart = res.data.start;
         console.log("初始化数据 :>> ", term, termStart);
         if (!/\d{4}-\d{4}-\d{1}/.test(term) || !/\d{4}-\d{2}-\d{2}/.test(termStart)) {
           throw new Error("日期格式解析错误");

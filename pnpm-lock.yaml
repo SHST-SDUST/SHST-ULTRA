@@ -51,8 +51,8 @@ dependencies:
     specifier: 3.6.19
     version: 3.6.19(@types/react@17.0.75)(postcss@8.4.31)
   laser-utils:
-    specifier: 0.0.2-alpha.11
-    version: 0.0.2-alpha.11
+    specifier: 0.0.2-alpha.14
+    version: 0.0.2-alpha.14
   react:
     specifier: ^17.0.0
     version: 17.0.2
@@ -9024,8 +9024,8 @@ packages:
     resolution: {integrity: sha512-5FZRzrZzNTBruuurWpvZnvP9pum+fe0HcK8z/ooo+U+Hmp4vtbyp1/QDsqmufirXy4egGzbaH/y2uCZf+6W5Kg==}
     dev: true
 
-  /laser-utils@0.0.2-alpha.11:
-    resolution: {integrity: sha512-U3dePpqEIpAzb1dHfG8uN9GaCZ7fCXk/0XYIixf34Rwp8Zd4x0RHSeXlbdjIjdixbObfne9koD0m6AgNtazXfQ==}
+  /laser-utils@0.0.2-alpha.14:
+    resolution: {integrity: sha512-oq4vXRb9ZQB0V/RUTFGZSLSUh9BpFeSqls6p5hHhAIWGK8+TkJYRLX7+FZY9DqGjI2YC1LEuz3AzWeNmMZBuoQ==}
     dev: false
 
   /latest-version@5.1.0:
@@ -9686,8 +9686,8 @@ packages:
     resolution: {integrity: sha512-ewXOEqLGIgqQSy4wbaCHq47sfDsC/hQhO9QVzTQTCKNf9x691AwADHorfCTfVLXDVkOjbbLmJ086M3Dv7hKcXw==}
     dev: true
 
-  /miniprogram-compiler@0.2.2:
-    resolution: {integrity: sha512-fiJXv/15jCcRAU8YKcO7S7fkPKLa5ZBgpLN+d6B3r3KMktM5tAkDEQ+zm6aTfNoHurYOHcRyPyGf26gqQXlFXg==}
+  /miniprogram-compiler@0.2.3:
+    resolution: {integrity: sha512-/MfFiXTBUwYxnrTbj1hgwk1+qGkMCTL1zi8IReOq/0SPVkUxpx19E89w+ohYCELFXkMfVbD+6ejrHh3Y1u5sVg==}
     dependencies:
       glob: 7.2.3
       unescape-js: 1.1.4
@@ -9703,7 +9703,7 @@ packages:
       csso: 3.5.1
       j-component: 1.4.9
       less: 3.13.1
-      miniprogram-compiler: 0.2.2
+      miniprogram-compiler: 0.2.3
       postcss: 7.0.39
       pretty-format: 26.6.2
     dev: true

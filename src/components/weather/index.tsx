@@ -2,15 +2,11 @@ import { Image, View } from "@tarojs/components";
 import { cs } from "laser-utils";
 import { type FC, useEffect, useState } from "react";
 
-import { DEV_HOST } from "@/utils/constant";
 import { Toast } from "@/utils/toast";
 
 import { Divider } from "../divider";
 import styles from "./index.module.scss";
-import { requestWeatherData } from "./model";
-
-const CLEAR = "CLEAR_DAY";
-const STATIC_PATH = DEV_HOST + "/public/static/weather/";
+import { CLEAR, requestWeatherData, STATIC_PATH } from "./model";
 
 export const Weather: FC<{
   className?: string;
