@@ -3,7 +3,6 @@ import { DateTime } from "./datetime";
 export { PATH } from "../config/page";
 
 export const SW_HOST = "https://jwgl.sdust.edu.cn/jsxsd/";
-export const CONFIG_URL = "https://registry.npmmirror.com/shst-ultra/latest/files/config.json";
 
 export const CACHE = {
   CONFIG: "CONFIG",

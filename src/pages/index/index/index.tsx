@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 import { Dot } from "@/components/dot";
 import { Icon } from "@/components/icon";
 import { Layout } from "@/components/layout";
-import { OneSentence } from "@/components/one-sentence";
+import { Sentence } from "@/components/sentence";
 import type { TimeTableType } from "@/components/time-table/types";
 import { Weather } from "@/components/weather";
 import { PATH } from "@/config/page";
@@ -152,7 +152,7 @@ export default function Index() {
 
       {/* 每日一句 */}
       <Layout title="每日一句">
-        <OneSentence></OneSentence>
+        <Sentence></Sentence>
       </Layout>
     </React.Fragment>
   );

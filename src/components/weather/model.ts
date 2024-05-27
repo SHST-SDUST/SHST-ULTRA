@@ -23,7 +23,7 @@ export const requestWeatherData = (): Promise<WeatherType | null> => {
     .then(cache => {
       if (cache) return Promise.resolve(cache);
       return HTTP.request<{ data: WeatherType }>({
-        url: PROD_HOST + "/ext/weather",
+        url: PROD_HOST + "/ultra/weather",
         cookie: false,
       }).then(res => {
         if (res.statusCode === 200 && res.data && res.data.data.sky) {

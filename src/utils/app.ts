@@ -13,7 +13,7 @@ export const App = {
   init: () => {
     Loading.start({ load: 3, title: "加载中" });
     return HTTP.request<{ term: string; start: string }>({
-      url: PROD_HOST + "/ext/term",
+      url: PROD_HOST + "/ultra/term",
     })
       .then(res => {
         const term = res.data.term;

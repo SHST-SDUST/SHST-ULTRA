@@ -7,7 +7,7 @@ import { Preview } from "@/utils/preview";
 import styles from "./index.module.scss";
 import { requestOneSentence } from "./model";
 
-export const OneSentence: FC = () => {
+export const Sentence: FC = () => {
   const [image, setImage] = useState<string>("");
   const [note, setNote] = useState<string>("");
   const [content, setContent] = useState<string>("");

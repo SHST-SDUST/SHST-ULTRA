@@ -1,4 +1,4 @@
-import { CACHE, CONFIG_URL } from "@/utils/constant";
+import { CACHE, PROD_HOST } from "@/utils/constant";
 import { DateTime } from "@/utils/datetime";
 import { HTTP } from "@/utils/request";
 import { LocalStorage } from "@/utils/storage";
@@ -31,7 +31,7 @@ export const requestRemoteConfig = () => {
     if (local) return local;
     return HTTP.request<Config>({
       load: 0,
-      url: CONFIG_URL,
+      url: PROD_HOST + "/ultra/config",
     })
       .then(res => {
         const data = res.data;
