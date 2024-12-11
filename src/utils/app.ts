@@ -18,7 +18,7 @@ export const App = {
       .then(res => {
         const term = res.data.term;
         const termStart = res.data.start;
-        console.log("初始化数据 :>> ", term, termStart);
+        console.log("初始化数据:", term, termStart);
         if (!/\d{4}-\d{4}-\d{1}/.test(term) || !/\d{4}-\d{2}-\d{2}/.test(termStart)) {
           throw new Error("日期格式解析错误");
         }

@@ -23,7 +23,7 @@ export const globalAppData: Data = {
   curWeek: 1,
   isInitialized: false,
   isULTRALogin: false,
-  version: "3.6.5",
+  version: "3.6.6",
   project: "山科小站",
   curTerm: "2019-2020-1",
   curTermStart: "2019-08-26",
