@@ -6,7 +6,7 @@ import { Toast } from "@/utils/toast";
 
 import { Divider } from "../divider";
 import styles from "./index.module.scss";
-import { CLEAR, requestWeatherData, STATIC_PATH } from "./model";
+import { CLEAR, requestWeatherData } from "./model";
 
 export const Weather: FC<{
   className?: string;
@@ -32,11 +32,7 @@ export const Weather: FC<{
   return (
     <View className={cs(props.className)}>
       <View className={styles.overview}>
-        <Image
-          className={cs(styles.icon, "a-lmr")}
-          mode="aspectFit"
-          src={`${STATIC_PATH + sky}.png`}
-        ></Image>
+        <Image className={cs(styles.icon, "a-lmr")} mode="aspectFit" src={sky}></Image>
         <View>{`${min}°C - ${max}°C`}</View>
         <View className="text-ellipsis a-flex-full a-lml" onClick={() => Toast.info(desc)}>
           <View className="text-ellipsis">{desc}</View>
@@ -51,7 +47,7 @@ export const Weather: FC<{
               className={styles.icon}
               key={index}
               mode="aspectFit"
-              src={`${STATIC_PATH + future[index % 5]}.png`}
+              src={future[index % 5]}
             ></Image>
           ))}
       </View>

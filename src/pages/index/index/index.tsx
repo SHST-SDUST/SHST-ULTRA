@@ -17,8 +17,7 @@ import { Event, EVENT_ENUM } from "@/utils/event";
 import { Nav } from "@/utils/nav";
 
 import styles from "./index.module.scss";
-import type { SwiperItem as SwiperItemType } from "./model";
-import { requestRemoteConfig } from "./model";
+import { DEFAULT_CONFIG, type SwiperItem as SwiperItemType } from "./model";
 
 const NOW = new DateTime().format("yyyy-MM-dd K");
 
@@ -51,11 +50,11 @@ export default function Index() {
   };
 
   const onInit = () => {
-    requestRemoteConfig().then(res => {
-      setSwiper(res.swiper);
-      setPost(res.post.title);
-      setPostUrl(res.post.link);
-    });
+    const swiperConfig = App.data.swiper || DEFAULT_CONFIG.swiper;
+    const postConfig = App.data.post || DEFAULT_CONFIG.post;
+    setSwiper(swiperConfig);
+    setPost(postConfig.title);
+    setPostUrl(postConfig.link);
     getTimeTable();
   };
   useOnLoadEffect(onInit);
@@ -70,7 +69,7 @@ export default function Index() {
 
   return (
     <React.Fragment>
-      {/* `Banner` */}
+      {/* Banner */}
       <Layout>
         <View className={styles.swiperContainer}>
           <Swiper indicatorDots interval={5000} duration={1000} autoplay circular>

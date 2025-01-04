@@ -2,7 +2,7 @@ import { View } from "@tarojs/components";
 import { cs } from "laser-utils";
 import type { FC } from "react";
 
-import { stopBubble } from "@/utils/stop";
+import { stopBubble } from "@/utils/native";
 
 import { Icon } from "../icon";
 import styles from "./index.module.scss";

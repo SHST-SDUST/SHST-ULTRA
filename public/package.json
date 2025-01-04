@@ -1,11 +1,12 @@
 {
   "name": "shst-ultra",
-  "version": "1.0.1",
+  "version": "1.0.5",
   "private": false,
   "description": "SHST-ULTRA",
   "files": [
     "dist",
-    "config.json"
+    "config.json",
+    "README.md"
   ],
   "templateInfo": {
     "name": "default",

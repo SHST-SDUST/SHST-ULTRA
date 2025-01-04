@@ -1,19 +1,22 @@
-import { CACHE, PROD_HOST } from "@/utils/constant";
+import { TSON } from "laser-utils";
+
+import { CACHE, CONFIG_HOST } from "@/utils/constant";
 import { DateTime } from "@/utils/datetime";
+import { to } from "@/utils/native";
 import { HTTP } from "@/utils/request";
 import { LocalStorage } from "@/utils/storage";
+import { Toast } from "@/utils/toast";
 
-export type SwiperItem = {
-  img: string;
-  url: string;
-};
+export type SwiperItem = { img: string; url: string };
 
 export type Config = {
+  term: string;
+  termStart: string;
   swiper: SwiperItem[];
   post: { title: string; link: string };
 };
 
-const DEFAULT_CONFIG: Config = {
+export const DEFAULT_CONFIG: Config = {
   swiper: [
     {
       img: "http://dev.shst.touchczy.top/public/static/img/logo.jpg",
@@ -24,20 +27,39 @@ const DEFAULT_CONFIG: Config = {
     title: "山科小站常见问题",
     link: "https://mp.weixin.qq.com/s/UnI25nELsIcGXn4EiySZqg",
   },
+  term: "2024-2025-1",
+  termStart: "2024-08-26",
 };
 
-export const requestRemoteConfig = () => {
-  return LocalStorage.getPromise<Config>(CACHE.CONFIG).then(local => {
-    if (local) return local;
-    return HTTP.request<Config>({
+export const requestGlobalConfig = async (): Promise<Config> => {
+  const cache = await LocalStorage.getPromise<Config>(CACHE.CONFIG);
+  if (cache) return cache;
+  const [err, res] = await to(
+    HTTP.request<{ readme: string }>({
       load: 0,
-      url: PROD_HOST + "/ultra/config",
+      // https://shst.touchczy.top/ultra/term
+      // https://shst.touchczy.top/ultra/config
+      url: CONFIG_HOST + "/shst-ultra?t=" + new Date().getTime(),
     })
-      .then(res => {
-        const data = res.data;
-        LocalStorage.setPromise(CACHE.CONFIG, data, new DateTime().nextDay());
-        return data;
-      })
-      .catch(() => DEFAULT_CONFIG);
-  });
+  );
+  if (err || !res.data) {
+    const persist = await LocalStorage.getPromise<Config>(CACHE.PERSIST_CONFIG);
+    if (persist) return persist;
+  }
+  if (res && res.data && res.data.readme) {
+    const str = res.data.readme;
+    const startIndex = str.indexOf("<!--#");
+    const endIndex = str.indexOf("#-->");
+    if (startIndex === -1 || endIndex === -1) return DEFAULT_CONFIG;
+    const json = str.slice(startIndex + 5, endIndex);
+    const data = TSON.parse<Config>(json);
+    if (!data || !data.term || !data.termStart) return DEFAULT_CONFIG;
+    LocalStorage.setPromise(CACHE.CONFIG, data, new DateTime().deferHour(2));
+    LocalStorage.setPromise(CACHE.PERSIST_CONFIG, data);
+    return data;
+  }
+  if (process.env.NODE_ENV === "development") {
+    Toast.info("获取配置信息失败，使用默认配置");
+  }
+  return DEFAULT_CONFIG;
 };

@@ -1,19 +1,23 @@
 export interface Data {
-  // 基本配置
+  /** 基本配置 */
   url: string;
-  // 登录状态
+  /** 登录状态 */
   isInitialized: boolean;
   isULTRALogin: boolean;
-  // 系统信息
+  /** 系统信息 */
   project: string;
   version: string;
-  // 学期与周数
+  /** 学期与周数 */
   curWeek: number;
   curTerm: string;
   curTermStart: string;
-  // 系统颜色列表
+  /** 系统颜色列表 */
   colorList: Array<string>;
-  // 暂存数据
+  /** 轮播图 */
+  swiper?: { img: string; url: string }[];
+  /** 公告 */
+  post?: { title: string; link: string };
+  /** 暂存数据 */
   tmp: { [key: string]: unknown };
 }
 
@@ -23,7 +27,7 @@ export const globalAppData: Data = {
   curWeek: 1,
   isInitialized: false,
   isULTRALogin: false,
-  version: "3.6.6",
+  version: "3.6.7",
   project: "山科小站",
   curTerm: "2019-2020-1",
   curTermStart: "2019-08-26",
