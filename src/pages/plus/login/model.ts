@@ -7,7 +7,7 @@ export const CAPTCHA_HEIGHT = 22;
 export const CAPTCHA_WIDTH = 62;
 export const BASE64_PREFIX = "data:image/jpg;base64,";
 
-const base64Encode = str => {
+const base64Encode = (str: string) => {
   let output = "";
   let chr1: number,
     chr2: number,

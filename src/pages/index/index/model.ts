@@ -27,8 +27,8 @@ export const DEFAULT_CONFIG: Config = {
     title: "山科小站常见问题",
     link: "https://mp.weixin.qq.com/s/UnI25nELsIcGXn4EiySZqg",
   },
-  term: "2024-2025-1",
-  termStart: "2024-08-26",
+  term: "2024-2025-2",
+  termStart: "2025-02-24",
 };
 
 export const requestGlobalConfig = async (): Promise<Config> => {
@@ -42,7 +42,10 @@ export const requestGlobalConfig = async (): Promise<Config> => {
       url: CONFIG_HOST + "/shst-ultra?t=" + new Date().getTime(),
     })
   );
-  if (err || !res.data) {
+  if (err || !res.data || !res.data.readme) {
+    if (process.env.NODE_ENV === "development") {
+      Toast.info("请求远程配置信息失败，尝试使用兜底配置");
+    }
     const persist = await LocalStorage.getPromise<Config>(CACHE.PERSIST_CONFIG);
     if (persist) return persist;
   }
