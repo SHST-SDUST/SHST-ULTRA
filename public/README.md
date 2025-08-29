@@ -2,8 +2,8 @@
 
 <!--#
 {
-  "term": "2024-2025-2",
-  "termStart": "2025-02-24",
+  "term": "2025-2026-1",
+  "termStart": "2025-09-01",
   "swiper": [
     {
       "img": "http://dev.shst.touchczy.top/public/static/img/logo.jpg",
