@@ -2,8 +2,8 @@
 
 <!--#
 {
-  "term": "2025-2026-1",
-  "termStart": "2025-09-01",
+  "term": "2025-2026-2",
+  "termStart": "2026-03-09",
   "swiper": [
     {
       "img": "http://dev.shst.touchczy.top/public/static/img/logo.jpg",
@@ -11,8 +11,8 @@
     }
   ],
   "post": {
-    "title": "[重要]山科小站数数据拉取失败公告",
-    "link": "https://mp.weixin.qq.com/s/X7K0cvq50cg5qk3SpDOpnA"
+    "title": "【重要】山科小站常见问题解答 FAQ",
+    "link": "https://mp.weixin.qq.com/s/iqrvrp-bL4cxZIz7MJrFfw"
   }
 }
 #-->
