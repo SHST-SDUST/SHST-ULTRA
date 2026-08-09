@@ -27,7 +27,7 @@ export const requestForGrade = (term: string): Promise<GradeType[]> => {
     load: 2,
     throttle: true,
     method: "POST",
-    url: SW_HOST + "kbxx/jsjy_query2",
+    url: SW_HOST + "kscj/cjcx_list",
     data: {
       kksj: term === "all" ? "" : term,
       pageNum: 1,

@@ -94,8 +94,8 @@ export default function Index() {
       {data.map((item, key) => (
         <Layout key={key}>
           <View className="y-center a-fontsize-15">
-            <Dot name={item.book_name}></Dot>
-            <View className="text-ellipsis">{item.book_name}</View>
+            <Dot name={item.bookName}></Dot>
+            <View className="text-ellipsis">{item.bookName}</View>
           </View>
           <View className="y-center a-fontsize-12 a-lmt a-color-grey">
             <View>ISBN: {item.isbn}</View>
@@ -104,12 +104,12 @@ export default function Index() {
           <View className="y-center a-fontsize-12 a-lmt a-color-grey">
             <View>作者: {item.author || "无"}</View>
             <View className="a-lml">出版社: {item.publisher || "无"}</View>
-            <View className="a-lml">出版时间: {item.publish_time || "无"}</View>
+            <View className="a-lml">出版时间: {item.publishTime || "无"}</View>
           </View>
           <View className="y-center a-fontsize-12 a-lmt a-color-grey">
-            <View>课程: {item.classname || "无"}</View>
+            <View>课程: {item.className || "无"}</View>
             <View className="a-lml">类型: {item.type || "无"}</View>
-            <View className="a-lml">班级订购: {item.nums}</View>
+            <View className="a-lml">班级订购: {item.count}</View>
           </View>
         </Layout>
       ))}

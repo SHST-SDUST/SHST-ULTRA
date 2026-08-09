@@ -75,7 +75,7 @@ export default function Func() {
             <View className={styles.text}>教室课表</View>
           </View>
           <View className={styles.iconBox} onClick={() => onNav(PATH.PLUS_TEACHER, true)}>
-            <Icon type="tubing-"></Icon>
+            <Icon type="tubiao-"></Icon>
             <View className={styles.text}>教师课表</View>
           </View>
           <View className={styles.iconBox} onClick={() => onNav(PATH.PLUS_COURSE, true)}>

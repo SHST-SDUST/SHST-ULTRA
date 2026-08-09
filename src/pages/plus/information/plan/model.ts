@@ -18,6 +18,13 @@ export const requestForPlan = () => {
   return HTTP.request<string>({
     load: 3,
     url: SW_HOST + "pyfa/pyfa_query",
+    data: {
+      islist: 1,
+      pageNum: 1,
+      pageSize: 999,
+      kkxq: "",
+      kcxx: "",
+    },
   }).then(res => {
     return htmlToPlans(res.data);
   });

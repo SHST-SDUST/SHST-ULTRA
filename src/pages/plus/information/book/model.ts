@@ -6,14 +6,14 @@ import { htmlToBooks } from "./parser";
 export type QueryTerms = { show: string; value: string }[];
 
 export type BookItem = {
-  book_name: string;
+  bookName: string;
   no: string;
   isbn: string;
   publisher: string;
-  publish_time: string;
-  classname: string;
+  publishTime: string;
+  className: string;
   type: string;
-  nums: string;
+  count: string;
   author: string;
 };
 
@@ -23,11 +23,13 @@ export const requestForBook = (term: string): Promise<BookItem[] | null> => {
   return HTTP.request<string>({
     load: 2,
     throttle: true,
-    method: "POST",
-    url: SW_HOST + "jcgl/bjjcdg",
+    method: "GET",
+    url: SW_HOST + "jcgl/bjjcdg_query",
     data: {
       xnxqid: term,
-      xqlbmc: "",
+      reqType: "listData",
+      pageNum: 1,
+      pageSize: 999,
     },
   }).then(res => {
     return htmlToBooks(res.data);

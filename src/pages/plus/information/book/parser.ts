@@ -1,25 +1,23 @@
-import { RegExec as R } from "@/utils/regex";
-
 import type { BookItem } from "./model";
 
-export const htmlToBooks = (html: string) => {
+export const htmlToBooks = (text: string): BookItem[] => {
+  const json = typeof text === "string" ? JSON.parse(text) : text;
+  if (!json) {
+    return [];
+  }
   const books: BookItem[] = [];
-  const content = R.exec(/<table[\s\S]*?class="Nsb_r_list Nsb_table">([\s\S]*?)<\/table>/g, html);
-  const group = R.match(/<tr[\s\S]*?>([\s\S]*?)<\/tr>/g, content);
-  group.forEach(item => {
-    const data = R.match(/<td[\s\S]*?>([\s\S]*?)<\/td>/g, item);
-    if (!data[1]) return void 0;
+  for (const value of json.data) {
     books.push({
-      no: data[0],
-      classname: data[1],
-      type: data[2],
-      book_name: data[3],
-      publisher: data[4],
-      author: data[5],
-      isbn: data[6],
-      publish_time: data[7],
-      nums: data[9],
+      bookName: value.jcmc || "",
+      no: value.kch || "",
+      isbn: value.isbn || "",
+      publisher: value.cbsmc || "",
+      publishTime: value.cbsj || "",
+      className: value.kcmc || "",
+      type: value.dmmc || "",
+      count: value.dgcs + "" || "",
+      author: value.jczz || "",
     });
-  });
+  }
   return books;
 };
