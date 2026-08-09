@@ -5,9 +5,13 @@ export const Cookie = {
     let cookies = "";
     if (res && res.header) {
       for (const item in res.header) {
-        if (item.toLowerCase() === "set-cookie") {
-          const cookie = res.header[item].match(/.*?=.*?;/);
-          cookies += cookie; // [] + "" = ""
+        if (item.toLowerCase() !== "set-cookie") continue;
+        const v = res.header[item];
+        const cookieMatch = v.match(/[A-Za-z0-9_]*?=.*?;/g) || [];
+        for (const cookieItem of cookieMatch) {
+          const c = cookieItem.toLowerCase();
+          if (c.match(/path=\//i)) continue;
+          cookies = cookies + cookieItem;
         }
       }
       console.log("SetCookie:", cookies);

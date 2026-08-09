@@ -12,7 +12,6 @@ import { Nav } from "@/utils/nav";
 import { LocalStorage } from "@/utils/storage";
 import { Toast } from "@/utils/toast";
 
-import { identifyCaptcha } from "./captcha";
 import styles from "./index.module.scss";
 import {
   BASE64_PREFIX,
@@ -60,9 +59,7 @@ export default function Index() {
     requestForVerifyCode().then(res => {
       const base64 = Taro.arrayBufferToBase64(res);
       setBase64Captcha(base64);
-      identifyCaptcha(base64).then(captcha => {
-        setCode(captcha || "");
-      });
+      setCode("****");
     });
   };
 
@@ -164,7 +161,7 @@ export default function Index() {
           2. 账号密码与
           <Text
             className="a-link"
-            onClick={() => Clipboard.copy("https://jwgl.sdust.edu.cn/jsxsd/")}
+            onClick={() => Clipboard.copy("https://jwglxt.sdust.edu.cn/jsxsd/")}
           >
             强智教务系统
           </Text>

@@ -27,8 +27,8 @@ export const DEFAULT_CONFIG: Config = {
     title: "山科小站常见问题",
     link: "https://mp.weixin.qq.com/s/UnI25nELsIcGXn4EiySZqg",
   },
-  term: "2024-2025-2",
-  termStart: "2025-02-24",
+  term: "2026-2027-1",
+  termStart: "2026-08-31",
 };
 
 export const requestGlobalConfig = async (): Promise<Config> => {

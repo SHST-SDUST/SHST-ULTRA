@@ -16,7 +16,7 @@ export const CACHE = {
 
 export const PROD_HOST = "https://shst.touchczy.top";
 export const DEV_HOST = "http://dev.shst.touchczy.top";
-export const SW_HOST = "https://jwgl.sdust.edu.cn/jsxsd/";
+export const SW_HOST = "https://jwglxt.sdust.edu.cn/jsxsd/";
 export const REMOTE_STATIC = DEV_HOST + "/public/static/";
 export const CONFIG_HOST = "https://registry.npmmirror.com";
 
