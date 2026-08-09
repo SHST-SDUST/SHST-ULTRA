@@ -23,7 +23,8 @@ export const requestForExam = (term: string): Promise<ExamType[] | null> => {
     url: SW_HOST + "xsks/xsksap_list",
     data: {
       xnxqid: term,
-      xqlbmc: "",
+      pageNum: 1,
+      pageSize: 999,
       xqlb: "",
     },
   }).then(res => {

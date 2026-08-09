@@ -27,13 +27,16 @@ export const requestForGrade = (term: string): Promise<GradeType[]> => {
     load: 2,
     throttle: true,
     method: "POST",
-    url: SW_HOST + "kscj/cjcx_list_new",
+    url: SW_HOST + "kbxx/jsjy_query2",
     data: {
-      kksj: term,
+      kksj: term === "all" ? "" : term,
+      pageNum: 1,
+      pageSize: 999,
       xsfs: "all",
-      showType: 2,
       kcxz: "",
+      kcsx: "",
       kcmc: "",
+      sfxsbcxq: 1,
     },
   }).then(res => {
     return htmlToGrades(res.data);

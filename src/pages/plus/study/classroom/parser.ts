@@ -1,45 +1,26 @@
-import { TSON } from "laser-utils";
-
-import { RegExec as R } from "@/utils/regex";
-
 import type { ClassItem } from "./model";
 
-export const htmlToClassroom = (html: string) => {
-  const now: ClassItem[] = [];
-  const next: ClassItem[] = [];
-  const state: Record<string, string> = {};
-  const text = R.exec(/script>var[\s\S]*?<\/script/, html)
-    .replace(/<br \/>/g, "|")
-    .replace(/室/g, "")
-    .replace(/（/g, "(")
-    .replace(/）/g, ")");
-  const roomsTemp = R.exec(/roomlist = (.*?);/, text);
-  const roomsData: number[] = TSON.parse(roomsTemp) || [];
-  const nowTemp = R.exec(/dictionary = (.*?);/, text);
-  const nowData: Record<string, string> = TSON.parse(nowTemp) || {};
-  const nextTemp = R.exec(/dictionary_next = (.*?);/, text);
-  const nextData: Record<string, string> = TSON.parse(nextTemp) || {};
-  const rooms: number[] = roomsData;
-  state.view = R.exec(/<input[\s\S]*?name="__VIEWSTATE"[\s\S]*?value="(.*?)"/, html);
-  state.generator = R.exec(/<input[\s\S]*?name="__VIEWSTATEGENERATOR"[\s\S]*?value="(.*?)"/, html);
-  state.action = R.exec(/<input[\s\S]*?name="__EVENTVALIDATION"[\s\S]*?value="(.*?)"/, html);
-  for (const [key, value] of Object.entries(nowData)) {
-    const data = value.split("|");
-    now.push({
-      classroom: key,
-      name: data[0] || "",
-      teacher: data[1] || "",
-      grade: data[2] || "",
+export const htmlToClassroom = (text: string, date: string): ClassItem[] | { msg: string } => {
+  const json = typeof text === "string" ? JSON.parse(text) : text;
+  if (json.msg) {
+    return { msg: json.msg };
+  }
+  const data = json[4];
+  if (!data) {
+    return [];
+  }
+  const weekday = new Date(date).getDay() || 7; // 周日为7，与PHP date("N")一致
+  const offset = (weekday - 1) * 5 + 1;
+  const result: ClassItem[] = [];
+  for (const value of data) {
+    const room = value[0];
+    const type = value[38];
+    const slice: boolean[] = value.slice(offset, offset + 5).map((it: unknown) => !!it);
+    result.push({
+      room,
+      date: slice as ClassItem["date"],
+      type,
     });
   }
-  for (const [key, value] of Object.entries(nextData)) {
-    const data = value.split("|");
-    next.push({
-      classroom: key,
-      name: data[0] || "",
-      teacher: data[1] || "",
-      grade: data[2] || "",
-    });
-  }
-  return { now, next, rooms, STATE: state };
+  return result;
 };

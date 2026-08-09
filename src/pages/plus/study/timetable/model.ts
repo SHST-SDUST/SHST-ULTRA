@@ -10,10 +10,18 @@ export const requestRemoteTimeTable = (throttle = false): Promise<TableData | nu
   return HTTP.request<string>({
     load: 2,
     throttle: throttle,
+    method: "POST",
     url: SW_HOST + "xskb/xskb_list.do",
     data: {
-      week: App.data.curWeek,
-      term: App.data.curTerm,
+      xnxq01id: App.data.curTerm,
+      sfFD: 1,
+      viweType: 0,
+      showallprint: 0,
+      showkchprint: 0,
+      showkink: 0,
+      showfzmprint: 0,
+      baseUrl: "/jsxsd",
+      xsflMapListJsonStr: encodeURIComponent("讲课学时,实践学时,实验学时,上机学时,课内实践学时"),
     },
   }).then(res => {
     try {

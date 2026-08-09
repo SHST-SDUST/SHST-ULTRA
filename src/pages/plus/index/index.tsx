@@ -1,4 +1,4 @@
-import { Button, Navigator, View } from "@tarojs/components";
+import { Navigator, View } from "@tarojs/components";
 import React from "react";
 
 import { Icon } from "@/components/icon";
@@ -68,14 +68,14 @@ export default function Func() {
         </View>
       </Layout>
 
-      <Layout title="扩展" color="rgb(var(--purple-5))" inheritColor>
+      {/** <Layout title="扩展" color="rgb(var(--purple-5))" inheritColor>
         <View className="y-center">
           <View className={styles.iconBox} onClick={() => onNav(PATH.PLUS_CLASSROOM_EXT, false)}>
             <Icon type="classroom"></Icon>
             <View className={styles.text}>教室课表</View>
           </View>
           <View className={styles.iconBox} onClick={() => onNav(PATH.PLUS_TEACHER, true)}>
-            <Icon type="tubiao-"></Icon>
+            <Icon type="tubing-"></Icon>
             <View className={styles.text}>教师课表</View>
           </View>
           <View className={styles.iconBox} onClick={() => onNav(PATH.PLUS_COURSE, true)}>
@@ -87,7 +87,7 @@ export default function Func() {
             <View className={styles.text}>意见反馈</View>
           </Button>
         </View>
-      </Layout>
+      </Layout> */}
     </React.Fragment>
   );
 }

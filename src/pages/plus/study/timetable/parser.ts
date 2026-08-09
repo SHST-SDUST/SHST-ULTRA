@@ -78,40 +78,55 @@ export const parseTimeTable = (
 
 export const htmlToTable = (html: string) => {
   const table: RemoteTableInfo = [];
-  const classes = R.match(/<div[\s\S]*?class="kbcontent"[\s]?>(.*?)<\/div>/g, html);
-  classes.forEach((item, index) => {
-    const repeat = item.split(/-{10,}/g);
-    const day = index % 7;
-    const serial = Math.floor(index / 7);
-    for (const value of repeat) {
-      if (value.startsWith("&nbsp;")) continue;
-      const nameGroup = value.split(/(<\/br>)|(<br\/>)/g);
-      const name = R.get(nameGroup, 0).replace("<br>", "").replace(/[（]/g, "(").replace("）", ")");
-      const teacher = R.exec(/<font[\s\S]*?title='老师'[\s\S]*?>(.*?)<\/font>/g, value);
-      const weekStr = R.exec(/<font[\s\S]*?title='周次\(节次\)'[\s\S]*?>(.*?)<\/font>/g, value)
-        .replace(/[,=\\]/g, ",")
-        .replace(/[（]/g, "(")
-        .replace("）", ")");
-      const weeks_raw = weekStr.replace(/[()]/g, "");
-      const weeks: string[] = []; // 三种模式 \d+-\d+ \d+ \d+-\d+\/[12]
-      for (const week of weekStr.split(",")) {
-        let weekItem = "";
-        if (week.indexOf("单周") > -1) weekItem = "/1";
-        else if (week.indexOf("双周") > -1) weekItem = "/2";
-        weekItem = week.replace(/[单双()周]/g, "") + weekItem;
-        weeks.push(weekItem);
-      }
-      const classroom = R.exec(/<font[\s\S]*?title='教室'[\s\S]*?>(.*?)<\/font>/g, value);
-      table.push({
-        day,
-        serial,
-        name,
-        teacher,
-        classroom,
-        weeks,
-        weeks_raw,
+
+  // 切分 tbody 后的内容
+  const fragments = html.split("<tbody");
+  const content = fragments.length > 1 ? fragments[1] : "";
+  const cleanContent = content.replace(/[\r\n]/g, "");
+
+  // 解析 tr 标签
+  const trs = R.match(/<tr[^>]*>(.*?)<\/tr>/g, cleanContent);
+  trs.forEach((tr, trIndex) => {
+    // 查找所有 td 标签
+    const tds = R.match(/<td[^>]*>(.*?)<\/td>/g, tr);
+    tds.forEach((td, tdIndex) => {
+      // 匹配 td 里的 ul 标签（qz-toolitiplists）
+      const ul = R.exec(/<ul.*?class="qz-toolitiplists"[^>]*>(.*?)<\/ul>/g, td);
+      if (!ul) return;
+      // 匹配 li 标签组
+      const lis = R.match(/<li[^>]*>(.*?)<\/li>/g, ul);
+      lis.forEach(li => {
+        let text = li.replace(/：/g, ":");
+        text = text.replace(/<span>/g, "").replace(/<\/span>/g, "");
+
+        const name = R.exec(/<div[^>]*>(.*?)<\/div>/g, text);
+        const teacher = R.exec(/老师:(.*?)</g, text).trim();
+        const classroom = R.exec(/地点:.*楼\((.*?)\)/g, text);
+        let weekRaw = R.exec(/时间:(.*?)\[/g, text);
+        weekRaw = weekRaw.replace(/[、=\\]/g, ",");
+        const weeksRaw = weekRaw.replace(/[()（）]/g, "");
+        const weeks: string[] = []; // 三种模式 \d+-\d+ \d+ \d+-\d+\/[12]
+        const weekGroup = weekRaw.split(",");
+        for (const week of weekGroup) {
+          let str = "";
+          if (week.indexOf("单周") > -1) str = "/1";
+          else if (week.indexOf("双周") > -1) str = "/2";
+          const weekItem = week.replace(/[单双()周]/g, "") + str;
+          weeks.push(weekItem);
+        }
+
+        table.push({
+          day: tdIndex - 1,
+          serial: trIndex,
+          name,
+          teacher,
+          weeks,
+          classroom,
+          weeks_raw: weeksRaw,
+        });
       });
-    }
+    });
   });
+
   return table;
 };

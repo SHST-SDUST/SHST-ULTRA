@@ -1,21 +1,19 @@
-import { RegExec as R } from "@/utils/regex";
-
 import type { ExamType } from "./model";
 
-export const htmlToExams = (html: string) => {
+export const htmlToExams = (text: string): ExamType[] => {
+  const json = typeof text === "string" ? JSON.parse(text) : text;
+  if (!json) {
+    return [];
+  }
   const exams: ExamType[] = [];
-  const content = R.exec(/<table[\s]*id="dataList"[\s\S]*?>([\s\S]*?)<\/table>/g, html);
-  const group = R.match(/<tr[\s\S]*?>([\s\S]*?)<\/tr>/g, content);
-  group.forEach(item => {
-    const data = R.match(/<td[\s\S]*?>([\s\S]*?)<\/td>/g, item);
-    if (!data[2]) return void 0;
+  for (const value of json.data) {
     exams.push({
-      no: data[2],
-      name: data[3],
-      time: data[4],
-      classroom: data[5],
-      location: data[6],
+      no: value.kch || "",
+      name: value.kskcmc || "",
+      classroom: value.js_mc || "",
+      location: value.zwh || "",
+      time: value.kssj || "",
     });
-  });
+  }
   return exams;
 };

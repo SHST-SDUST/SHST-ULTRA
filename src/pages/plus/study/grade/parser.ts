@@ -1,25 +1,24 @@
-import { RegExec as R } from "@/utils/regex";
-
 import type { GradeType } from "./model";
 
-export const htmlToGrades = (html: string) => {
+export const htmlToGrades = (text: string): GradeType[] => {
+  const json = typeof text === "string" ? JSON.parse(text) : text;
+  if (!json) {
+    return [];
+  }
   const grades: GradeType[] = [];
-  const content = R.exec(/<table[\s]*id="dataList"[\s\S]*?>([\s\S]*?)<\/table>/g, html);
-  const group = R.match(/<tr[\s\S]*?>([\s\S]*?)<\/tr>/g, content);
-  group.forEach(item => {
-    const data = R.match(/<td[\s\S]*?>([\s\S]*?)<\/td>/g, item);
-    if (!data[2]) return void 0;
+  for (const value of json.data) {
+    const kcxz = value.ksxz || "";
     grades.push({
-      no: data[2],
-      name: data[3],
-      grade: data[4],
-      makeup: data[5],
-      rebuild: data[6],
-      type: data[7],
-      credit: data[8],
-      gpa: data[9],
-      minor: data[10],
+      no: value.kch || "",
+      name: value.kc_mc || "",
+      grade: value.zcj || "",
+      makeup: kcxz.includes("补考") ? kcxz : "",
+      rebuild: kcxz.includes("重修") ? kcxz : "",
+      type: value.kcsx || "",
+      credit: value.xf || "",
+      gpa: value.jd || "",
+      minor: "",
     });
-  });
+  }
   return grades;
 };
