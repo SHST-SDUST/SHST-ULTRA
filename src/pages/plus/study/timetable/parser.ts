@@ -82,7 +82,7 @@ export const htmlToTable = (html: string) => {
   // 切分 tbody 后的内容
   const fragments = html.split("<tbody");
   const content = fragments.length > 1 ? fragments[1] : "";
-  const cleanContent = content.replace(/[\r\n]/g, "");
+  const cleanContent = content.replace(/[\r\n\t]/g, "");
 
   // 解析 tr 标签
   const trs = R.match(/<tr[^>]*>(.*?)<\/tr>/g, cleanContent);

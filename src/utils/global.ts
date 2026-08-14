@@ -4,6 +4,8 @@ export interface Data {
   /** 登录状态 */
   isInitialized: boolean;
   isULTRALogin: boolean;
+  /** 登录账号 */
+  account: string;
   /** 系统信息 */
   project: string;
   version: string;
@@ -25,9 +27,10 @@ export const globalAppData: Data = {
   url: "",
   tmp: {},
   curWeek: 1,
+  account: "",
   isInitialized: false,
   isULTRALogin: false,
-  version: "3.6.8",
+  version: "3.6.9",
   project: "山科小站",
   curTerm: "2019-2020-1",
   curTermStart: "2019-08-26",

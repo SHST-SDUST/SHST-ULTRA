@@ -43,6 +43,7 @@ export default function Index() {
           if (cache && cache.account && cache.account !== account) {
             LocalStorage.clear();
           }
+          App.data.account = account;
           LocalStorage.setPromise(CACHE.USER, { account, password });
           Nav.launch(PATH.HOME);
           App.init();
