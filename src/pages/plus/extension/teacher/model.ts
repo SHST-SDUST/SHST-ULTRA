@@ -13,7 +13,7 @@ export const requestForCourses = (academy: string): Promise<Record<string, Cours
     url: SW_HOST + "kbcx/kbxx_teacher_ifr",
     data: {
       pageNum: 1,
-      pageSize: 99999,
+      pageSize: 999999,
       xnxq01id: App.data.curTerm,
       jsyx: academy,
       jszc: "",

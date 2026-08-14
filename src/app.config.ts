@@ -36,9 +36,4 @@ export default defineAppConfig({
   },
   darkmode: true,
   themeLocation: "config/theme.json",
-  permission: {
-    "scope.userLocation": {
-      desc: "您的位置信息将用于嵙地图定位功能",
-    },
-  },
 });

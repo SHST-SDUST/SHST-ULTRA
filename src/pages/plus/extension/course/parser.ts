@@ -1,34 +1,28 @@
 import type { CourseTableItem } from "@/components/course-table/types";
-import { RegExec as R } from "@/utils/regex";
 
-export const htmlToCourses = (html: string) => {
-  const courses: Record<string, CourseTableItem[]> = {};
-  const content = R.exec(/<table[\s]*id="kbtable"[\s\S]*?>([\s\S]*?)<\/table>/g, html);
-  const group = R.match(
-    /<tr[\s\S]*?>([\s\S]*?)<\/tr>/g,
-    content
-      .replace(/&nbsp;/g, "")
-      .replace(/[\n\t]/g, "")
-      .replace(/<nobr>\s?/g, "")
-      .replace(/<\/nobr>/g, "")
-      .replace(/（/g, "(")
-      .replace(/）/g, ")")
-  );
-  group.forEach((item, index) => {
-    if (index < 2) return void 0;
-    const data = R.match(/<td[\s\S]*?>([\s\S]*?)<\/td>/g, item);
-    if (!data[0]) return void 0;
-    const row: CourseTableItem[] = [];
-    courses[data[0].trim()] = row;
-    data.forEach((it, k) => {
-      if (k === 0 || !it) return void 0;
-      const day = Math.floor((k - 1) / 5);
-      const serial = Math.floor((k - 1) % 5);
-      const list = R.match(/<div id='' class="kbcontent1">([\s\S]*?)<\/div>/g, it);
-      if (list.length === 0) return void 0;
-      const unit = list.map(iter => iter.split(/<\/?br>/));
-      row.push({ weekDay: day, serial, data: unit });
-    });
-  });
-  return courses;
+const P: string = "|-|";
+const UNION: string = "kcmc";
+type R = Record<string, number>;
+const S: R = { "1-2": 0, "3-4": 1, "5-6": 2, "7-8": 3, "9-10": 4 };
+const D: R = { 星期一: 0, 星期二: 1, 星期三: 2, 星期四: 3, 星期五: 4, 星期六: 5, 星期日: 6 };
+
+export const htmlToCourses = (text: string): Record<string, CourseTableItem[]> => {
+  const json = typeof text === "string" ? JSON.parse(text) : text;
+  const result: Record<string, CourseTableItem[]> = {};
+  const group: Record<string, CourseTableItem> = {};
+  for (const item of json.data) {
+    const day = D[item.zzdweek];
+    const serial = S[item.jc];
+    const key = `${day}${P}${serial}${P}${item[UNION]}`;
+    if (!group[key]) {
+      group[key] = { weekDay: day, serial, data: [] };
+    }
+    group[key].data.push([item.kcmc, item.jsmc, item.kkzc + "周", item.ktmc]);
+  }
+  for (const [key, value] of Object.entries(group)) {
+    const [, , union] = key.split(P);
+    result[union] = result[union] || [];
+    result[union].push(value);
+  }
+  return result;
 };

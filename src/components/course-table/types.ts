@@ -4,5 +4,6 @@ export type CourseTableItem = {
   data: string[][];
   background?: string; // 背景颜色 无则自动计算
 };
+
 export type CourseTableType = CourseTableItem[];
 export type DefinedCourseRecord = Record<string, CourseTableItem>;
