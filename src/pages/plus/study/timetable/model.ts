@@ -31,7 +31,7 @@ export const requestRemoteTimeTable = (throttle = false): Promise<TableData | nu
         // 特判特殊状态
         if (res.data.indexOf("评教未完成") > -1) {
           Toast.info("评教未完成，请先至强智完成评教后重试");
-          return null;
+          return [];
         }
         // 记录日志排查问题
         const fragments = res.data.split("<tbody");
