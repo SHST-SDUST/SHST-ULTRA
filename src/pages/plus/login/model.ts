@@ -28,7 +28,12 @@ export const loginApp = async (account: string, password: string, _code: string)
     },
   })
     .then(res => {
-      if (res.statusCode === 302 || res.data.indexOf("个人中心") > -1) {
+      if (
+        res.statusCode === 302 ||
+        res.data.indexOf("个人中心") > -1 ||
+        res.data.indexOf("退出登录") > -1 ||
+        res.data.indexOf("注销登录") > -1
+      ) {
         return { status: 1, msg: "" };
       } else {
         const err = RegExec.exec(/<font[\s\S]*?>(.*?)<\/font>/, res.data);
