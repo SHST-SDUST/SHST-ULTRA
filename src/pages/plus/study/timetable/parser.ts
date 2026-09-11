@@ -101,7 +101,9 @@ export const htmlToTable = (html: string) => {
 
         const name = R.exec(/<div[^>]*>(.*?)<\/div>/g, text);
         const teacher = R.exec(/老师:(.*?)</g, text).trim();
-        const classroom = R.exec(/地点:.*楼\((.*?)\)/g, text);
+        let classroom = R.exec(/地点:([^<]*)\)/g, text).trim();
+        classroom = classroom.replace(/.*楼/, "");
+        classroom = classroom.replace(/[()（）]/g, "");
         let weekRaw = R.exec(/时间:(.*?)\[/g, text);
         weekRaw = weekRaw.replace(/[、=\\]/g, ",");
         const weeksRaw = weekRaw.replace(/[()（）]/g, "");

@@ -27,9 +27,11 @@ export default function Index() {
   const [postUrl, setPostUrl] = useState("");
   const [table, setTable] = useState<TimeTableType>([]);
   const [tips, setTips] = useState("数据加载中");
-  const [tipsContent, setTipsContent] = useState("数据加载中");
+  const [tipsContent, setTipsContent] = useState("数据加载中...");
 
   const getTimeTable = (cache = true, throttle = false) => {
+    setTips("数据加载中");
+    setTipsContent("数据加载中...");
     requestTimeTable(cache, throttle).then(res => {
       if (res) {
         const list = parseTimeTable(res, App.data.curWeek, true);
