@@ -28,9 +28,19 @@ export const requestRemoteTimeTable = (throttle = false): Promise<TableData | nu
     try {
       const table = htmlToTable(res.data);
       if (table.length === 0) {
-        // 特判特殊状态
+        // 由于评教未完成导致解析内容为空
         if (res.data.indexOf("评教未完成") > -1) {
           Toast.info("评教未完成，请先至强智完成评教后重试");
+          return [];
+        }
+        // 密码过于简单也会导致解析内容为空
+        if (res.data.indexOf("密码过于简单") > -1) {
+          Toast.info("密码过于简单，请至教务系统修改密码");
+          return [];
+        }
+        // 系统登录状态可能会失效
+        if (res.data.indexOf("欢迎登录教务系统") > -1 || res.data.indexOf("请先登录系统") > -1) {
+          Toast.info("登录状态失效，请重新登录");
           return [];
         }
         // 记录日志排查问题
