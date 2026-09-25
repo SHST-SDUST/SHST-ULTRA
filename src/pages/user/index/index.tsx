@@ -81,7 +81,7 @@ export default function Index() {
         className={cs("a-btn a-btn-orange a-btn-large", styles.btnFull)}
         onClick={() => Nav.to(PATH.PLUS_LOGIN)}
       >
-        注销
+        退出登录
       </View>
     </Layout>
   );

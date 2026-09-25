@@ -1,5 +1,7 @@
 import { App } from "@/utils/app";
 import { CACHE, SW_HOST } from "@/utils/constant";
+import { DateTime } from "@/utils/datetime";
+import { isNil } from "@/utils/is";
 import { Report } from "@/utils/report";
 import { HTTP } from "@/utils/request";
 import { LocalStorage } from "@/utils/storage";
@@ -7,9 +9,14 @@ import { Toast } from "@/utils/toast";
 
 import { htmlToTable, type TableCache, type TableData } from "./parser";
 
-export const requestRemoteTimeTable = (throttle = false): Promise<TableData | null> => {
+export const requestRemoteTimeTable = (
+  throttle = false,
+  options: {
+    load?: number;
+  } = {}
+): Promise<TableData | null> => {
   return HTTP.request<string>({
-    load: 2,
+    load: isNil(options.load) ? 2 : options.load,
     throttle: throttle,
     method: "POST",
     url: SW_HOST + "xskb/xskb_list.do",
@@ -66,9 +73,45 @@ export const requestTimeTable = (cache = true, throttle = false): Promise<TableD
   return LocalStorage.getPromise<TableCache>(key).then(data => {
     if (data && data.term === App.data.curTerm) {
       console.log("GET TABLE FROM CACHE WEEK");
+      syncTimeTableCache();
       return data.data;
     } else {
+      keepTimeTableCache();
       return requestRemoteTimeTable(throttle);
     }
   });
+};
+
+/**
+ * 保持时间表缓存, 过期时间为下一天
+ */
+export const keepTimeTableCache = async () => {
+  const key = CACHE.TIMETABLE_CACHE_ASYNC;
+  const now = new DateTime();
+  const nextDay = now.nextDay();
+  return LocalStorage.setPromise(key, true, nextDay);
+};
+
+/** 标记课表同步中 */
+let isSyncing = false;
+
+/**
+ * 同步课表缓存
+ */
+export const syncTimeTableCache = async () => {
+  if (!App.data.isULTRALogin || isSyncing) return;
+  const now = new DateTime();
+  const hour = now.getHours();
+  // 7 - 12 点之间不同步缓存数据
+  if (6 < hour && hour < 12) return;
+  const key = CACHE.TIMETABLE_CACHE_ASYNC;
+  const cached = await LocalStorage.getPromise<boolean>(key);
+  if (cached || isSyncing) return;
+  isSyncing = true;
+  await keepTimeTableCache();
+  await new Promise(resolve => setTimeout(resolve, 5000));
+  console.log("START SYNC TIME-TABLE CACHE");
+  // 同步缓存数据 函数内部会写缓存
+  await requestRemoteTimeTable(false, { load: -1 });
+  isSyncing = false;
 };

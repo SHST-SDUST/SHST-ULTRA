@@ -35,6 +35,7 @@ export const App = {
       App.data.swiper = config.swiper;
       App.data.post = config.post;
       App.data.isInitialized = true;
+      App.data.isULTRALogin = true;
       await Promise.resolve();
       Event.commit(EVENT_ENUM.ON_LOADED, null);
     } catch (err) {
