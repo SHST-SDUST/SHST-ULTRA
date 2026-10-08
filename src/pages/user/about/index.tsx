@@ -79,7 +79,9 @@ export default function Index() {
       </View>
 
       <View className={styles.footer}>
-        <View className={styles.text}>Copyright © 2020 WindrunnerMax</View>
+        <View className={styles.text}>
+          Copyright © 2019-{new Date().getFullYear()} WindRunnerMax
+        </View>
       </View>
     </React.Fragment>
   );

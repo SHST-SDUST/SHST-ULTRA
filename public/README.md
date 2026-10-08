@@ -6,7 +6,7 @@
   "termStart": "2026-08-31",
   "swiper": [
     {
-      "img": "http://dev.shst.touchczy.top/public/static/img/logo.jpg",
+      "img": "https://dev.shst.touchczy.top/public/static/img/logo.jpg",
       "url": "https://mp.weixin.qq.com/s/UnI25nELsIcGXn4EiySZqg"
     }
   ],

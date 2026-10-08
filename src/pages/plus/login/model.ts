@@ -10,8 +10,13 @@ export const BASE64_PREFIX = "data:image/jpg;base64,";
 export const loginApp = async (account: string, password: string, _code: string) => {
   const preFetch = await HTTP.request({ url: SW_HOST, method: "GET" });
   const text = preFetch.data as string;
-  const code1 = RegExec.exec(/var scode = "(.*?)";/, text);
-  const code2 = RegExec.exec(/var sxh = "(.*?)";/, text);
+  const code1 = RegExec.exec(/scode[\s=]+['"](.*?)['"]/, text);
+  const code2 = RegExec.exec(/sxh[\s=]+['"](.*?)['"]/, text);
+  if (!code1 || !code2) {
+    // 登录参数获取失败, 清理一下 Cookie
+    HTTP.request.headers.cookie = "";
+    return { status: 2, msg: "获取登录参数失败-" + `c1:${!!code1} c2:${!!code2}` };
+  }
   const accountCode = encode(account);
   const passwordCode = encode(password);
   const code = accountCode + "%%%" + passwordCode + "%%%" + encode(" ");
@@ -53,6 +58,7 @@ export const requestForVerifyCode = () => {
   return HTTP.request<ArrayBuffer>({
     url: SW_HOST + "verifycode.servlet",
     responseType: "arraybuffer",
+    cookie: false,
   }).then(res => res.data);
 };
 
