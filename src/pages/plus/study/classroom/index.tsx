@@ -2,7 +2,7 @@ import type { CommonEventFunction, PickerViewProps } from "@tarojs/components";
 import { PickerView, PickerViewColumn, View } from "@tarojs/components";
 import React, { useState } from "react";
 
-import { Dot } from "@/components/dot";
+import { IconExtra } from "@/components/icon-extra";
 import { Layout } from "@/components/layout";
 import { Loading } from "@/utils/loading";
 
@@ -84,7 +84,11 @@ export default function Index() {
               <View className={styles.classRoom}>{item.room}</View>
               {item.date.slice(0, 5).map((placed, key2) => (
                 <View className={styles.cell} key={key2}>
-                  <Dot background={placed ? "rgb(var(--red-5))" : "rgb(var(--green-5))"} />
+                  <IconExtra
+                    type={placed ? "suo" : "dui"}
+                    className={styles.cellIcon}
+                    color={placed ? "rgb(var(--gold-6))" : "rgb(var(--green-6))"}
+                  />
                 </View>
               ))}
             </View>

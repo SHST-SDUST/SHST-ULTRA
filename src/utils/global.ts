@@ -30,7 +30,7 @@ export const globalAppData: Data = {
   account: "",
   isInitialized: false,
   isULTRALogin: false,
-  version: "3.6.14",
+  version: "3.6.15",
   project: "山科小站",
   curTerm: "2019-2020-1",
   curTermStart: "2019-08-26",

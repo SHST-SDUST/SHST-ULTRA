@@ -1,4 +1,5 @@
 import "./styles/global.scss";
+import "./styles/icon-extra.scss";
 
 import { useError, useLaunch, usePageNotFound } from "@tarojs/taro";
 import type { FC } from "react";

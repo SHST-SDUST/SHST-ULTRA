@@ -37,7 +37,7 @@ export const htmlToSituation = (html: string) => {
   const table2 = fragments.join("; ");
   const tds2 = R.match(/<div class="list-td.[^>]*>([\s\S]*?)<\/div>/g, table2);
 
-  for (let i = 0; i < tds2.length; i += 10) {
+  for (let i = 0; i < tds2.length; i += 8) {
     let creditValue = tds2[i + 3] || "";
     creditValue = creditValue.split(/[(（]/)[0].trim();
     detail.push({
