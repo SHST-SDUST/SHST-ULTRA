@@ -9,7 +9,7 @@ export const htmlToExams = (text: string): ExamType[] => {
   for (const value of json.data) {
     exams.push({
       no: value.kch || "",
-      name: value.kskcmc || "",
+      name: value.kc_mc || "",
       classroom: value.js_mc || "",
       location: value.zwh || "",
       time: value.kssj || "",

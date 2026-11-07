@@ -20,12 +20,12 @@ export const requestForExam = (term: string): Promise<ExamType[] | null> => {
     load: 2,
     throttle: true,
     method: "POST",
-    url: SW_HOST + "xsks/xsksap_list",
+    url: SW_HOST + "xsks/xsstk_list",
     data: {
       xnxqid: term,
       pageNum: 1,
       pageSize: 999,
-      xqlb: "",
+      kslb: "",
     },
   }).then(res => {
     return htmlToExams(res.data);
